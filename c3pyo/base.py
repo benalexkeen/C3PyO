@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import webbrowser
 import os
+import json
 
 from jinja2 import Environment, PackageLoader
 
@@ -51,17 +52,18 @@ class C3Chart(object):
     def plot(self):
         if not self.x_data:
             self.x_data = range(len(self.y_data))
-        x_data = [self.x_label]
+        x_data = [str(self.x_label)]
         x_data.extend(self.x_data)
-        y_data = [self.y_label]
+        y_data = [str(self.y_label)]
         y_data.extend(self.y_data)
         data = [x_data, y_data]
+        data = json.dumps(data)
         with open(temp_path, 'w') as f:
             f.write(template.render(
                 title=self.name, 
                 body='Hello, World',
                 data=data,
-                x_label=str(self.x_label)
+                x_label=self.x_label
                 ))
         webbrowser.open(url)
 
