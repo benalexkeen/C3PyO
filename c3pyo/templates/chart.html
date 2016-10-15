@@ -14,8 +14,23 @@
             bindto: '#chart_div',
             data: {
                 x: "{{ x_label|safe }}",
-                columns: {{ data }}
+                columns: {{ data }},
             },
+            legend: {
+                    show: {{ show_legend|safe }},
+                    position: {{ legend_position|safe }},
+            },
+            point: {
+                show: {{ show_points|safe }},
+            },
+            grid: {
+                x: {
+                    show: {{ x_grid_lines|safe }}
+                },
+                y: {
+                    show: {{ y_grid_lines|safe }}
+                }
+            }
         });
     </script>
 </body>
