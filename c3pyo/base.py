@@ -29,10 +29,11 @@ class C3Chart(object):
 
     def __init__(self, **kwargs):
         self.chart_type = None
-        self.name = kwargs.get('name', 'chart')
+        self.name = kwargs.get('name', 'C3 Chart')
         self.set_show_points(kwargs)
         self.set_grid_lines(kwargs)
         self.set_legend(kwargs)
+        self.set_area(kwargs)
         self.x_data = []
         self.y_data = []
         self.x_label = kwargs.get('x_label', 'x')
@@ -68,6 +69,11 @@ class C3Chart(object):
         msg = 'show_points must be a boolean'
         assert isinstance(self.show_points, bool), msg
 
+    def set_area(self, kwargs):
+        self.area = kwargs.get('area', False)
+        msg = 'area must be a boolean' 
+        assert isinstance(self.area, bool), msg
+
     def set_x_data(self, data):
         if is_iterable(data):
             self.x_data = data
@@ -100,6 +106,26 @@ class C3Chart(object):
         self.x_data = []
         self.y_data = []
 
+    def plot_graph(self, chart_json):
+        with open(temp_path, 'w') as f:
+            f.write(template.render(
+                title=self.name, 
+                body='Hello, World',
+                chart_json=chart_json,
+                ))
+        webbrowser.open(url)
+
+
+class lineChart(C3Chart):
+    def __init__(self, **kwargs):
+        super(lineChart, self).__init__(**kwargs)
+
+    def get_type(self):
+        if self.area:
+            self.chart_type = 'area'
+        else:
+            self.chart_type = 'line'
+
     def add_missing_data(self):
         if not self.y_data:
             raise ValueError("No y values, set values using set_y_data")
@@ -119,30 +145,65 @@ class C3Chart(object):
             y_data.append(y_series)
         all_data = [x_data]
         all_data.extend(y_data)
-        all_data = json.dumps(all_data)
         return all_data
+
+    def get_chart_json(self, all_data):
+        self.get_type()
+        self.check_chart_type()
+        bindto = '#chart_div'
+        chart_json = json.dumps({
+            'bindto': bindto,
+            'data': {
+                'x': self.x_label,
+                'columns': all_data,
+                'type': self.chart_type
+            },
+            'legend': {
+                'show': self.show_legend,
+                'position': self.legend_position
+            },
+            'points': {
+                'show': self.show_points
+            },
+            'grid': {
+                'x': {
+                    'show': self.x_grid_lines
+                },
+                'y': {
+                    'show': self.y_grid_lines
+                }
+            },
+        })
+        return chart_json
+
+    def check_chart_type(self):
+        valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step')
+        assert self.chart_type in valid_types, self.chart_type
 
     def plot(self):
         self.add_missing_data()
         all_data = self.get_all_data_for_plot()
-        print all_data
-        with open(temp_path, 'w') as f:
-            f.write(template.render(
-                title=self.name, 
-                body='Hello, World',
-                data=all_data,
-                x_label=self.x_label,
-                x_grid_lines=json.dumps(self.x_grid_lines),
-                y_grid_lines=json.dumps(self.y_grid_lines),
-                show_legend=json.dumps(self.show_legend),
-                legend_position=json.dumps(self.legend_position),
-                show_points=json.dumps(self.show_points)
-                ))
-        webbrowser.open(url)
+        chart_json = self.get_chart_json(all_data)
+        self.plot_graph(chart_json)
 
-class lineChart(C3Chart):
+
+class splineChart(lineChart):
     def __init__(self, **kwargs):
-        super(lineChart, self).__init__(**kwargs)
+        super(splineChart, self).__init__(**kwargs)
+
+    def get_type(self):
+        if self.area:
+            self.chart_type = 'area-spline'
+        else:
+            self.chart_type = 'spline'
 
 
+class stepChart(lineChart):
+    def __init__(self, **kwargs):
+        super(stepChart, self).__init__(**kwargs)
 
+    def get_type(self):
+        if self.area:
+            self.chart_type = 'area-step'
+        else:
+            self.chart_type = 'step'
