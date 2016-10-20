@@ -45,3 +45,20 @@ chart.plot()
 
 ![BarChart1]
 (http://benalexkeen.com/wp-content/uploads/2016/10/barchart1.png)
+
+### Scatter Chart
+
+```python
+import c3pyo as c3
+chart = c3.ScatterChart()
+chart.set_data(
+        {
+        "Dataset_1": [[1,2,3,4,5], [6,7,8,9,10]],
+        "Dataset_2": [[1.5, 2.5, 3.5, 4.5, 5.5], [5,6,7,8,9]]
+        }
+    )
+chart.plot()
+```
+
+![ScatterChart1]
+(http://benalexkeen.com/wp-content/uploads/2016/10/scatterchart1.png)
