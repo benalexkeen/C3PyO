@@ -7,6 +7,8 @@ C3PyO is currently a Work In Progress, to check out the functionality so far, cl
 
 Then have a go at some of the commands below (Note that the images shown are static but the graphs are interactive)
 
+### Line Chart
+
 ```python
 import c3pyo as c3
 chart = c3.LineChart()
@@ -16,6 +18,8 @@ chart.plot()
 ```
 ![LineChart1]
 (http://benalexkeen.com/wp-content/uploads/2016/10/linechart1.png)
+
+### Spline Chart
 
 ```python
 import datetime
@@ -30,3 +34,14 @@ chart.plot()
 ![SplineChart1]
 (http://benalexkeen.com/wp-content/uploads/2016/10/splinechart1.png)
 
+### Bar Chart
+
+```python
+import c3pyo as c3
+chart = c3.BarChart()
+chart.set_data({"a": 5, "b": 10, "c": 15, "d": 20})
+chart.plot()
+```
+
+![BarChart1]
+(http://benalexkeen.com/wp-content/uploads/2016/10/barchart1.png)
