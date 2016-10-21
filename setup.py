@@ -13,19 +13,13 @@ setup(
     author_email='bak@benalexkeen.com',
     url='http://github.com/benalexkeen/C3PyO',
     license="MIT",
-    # test_suite='tests',
+    test_suite='tests/',
     packages=[
         'c3pyo',
     ],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'python-slugify==1.1.4',
         'Jinja2>=2.8'
     ],
-    # entry_points={
-    #     'console_scripts': [
-    #         'nvd3 = nvd3.NVD3Chart:_main',
-    #     ],
-    # },
 )

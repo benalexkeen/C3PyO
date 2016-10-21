@@ -90,3 +90,12 @@ class C3Chart(object):
                 chart_json=chart_json,
                 ))
         webbrowser.open(url)
+
+    def get_chart_json(self):
+        msg = 'This is the chart base class'
+        raise NotImplementedError(msg)
+
+    def json(self):
+        res = self.get_chart_json()
+        return res
+

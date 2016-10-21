@@ -1,12 +1,13 @@
 import json
 import datetime
 
-from base import C3Chart
+from .base import C3Chart
 from c3pyo.utils import is_iterable
+
 
 class ScatterChart(C3Chart):
     def __init__(self, **kwargs):
-        super(scatterChart, self).__init__(**kwargs)
+        super(ScatterChart, self).__init__(**kwargs)
         self.x_s = {}
         self.data = []
         self.chart_type = 'scatter'

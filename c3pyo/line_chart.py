@@ -1,12 +1,13 @@
 import json
 import datetime
 
-from base import C3Chart
+from .base import C3Chart
 from c3pyo.utils import is_iterable, DATE_FORMAT, DATETIME_FORMAT
+
 
 class LineChart(C3Chart):
     def __init__(self, **kwargs):
-        super(lineChart, self).__init__(**kwargs)
+        super(LineChart, self).__init__(**kwargs)
         self.set_area(kwargs)
         self.set_show_points(kwargs)
         self.x_data = []
@@ -73,7 +74,7 @@ class LineChart(C3Chart):
         if not self.y_data:
             raise ValueError("No y values, set values using set_y_data")
         if not self.x_data:
-            self.x_data = range(len(self.y_data))
+            self.x_data = [(x + 1) for x in range(len(self.y_data[0]))]
         if len(self.y_labels) < len(self.y_data):
             for i in range(len(self.y_labels), len(self.y_data)):
                 self.y_labels.append("y{}".format(i+1))
@@ -130,6 +131,7 @@ class LineChart(C3Chart):
             return {}
 
     def get_chart_json(self):
+        self.add_missing_data()
         self.get_type()
         self.check_chart_type()
         chart_json = {
@@ -149,14 +151,13 @@ class LineChart(C3Chart):
         assert self.chart_type in valid_types, self.chart_type
 
     def plot(self):
-        self.add_missing_data()
         chart_json = self.get_chart_json()
         self.plot_graph(chart_json)
 
 
 class SplineChart(LineChart):
     def __init__(self, **kwargs):
-        super(splineChart, self).__init__(**kwargs)
+        super(SplineChart, self).__init__(**kwargs)
 
     def get_type(self):
         if self.area:
@@ -167,7 +168,7 @@ class SplineChart(LineChart):
 
 class StepChart(LineChart):
     def __init__(self, **kwargs):
-        super(stepChart, self).__init__(**kwargs)
+        super(StepChart, self).__init__(**kwargs)
 
     def get_type(self):
         if self.area:

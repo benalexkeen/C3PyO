@@ -1,11 +1,12 @@
 import json
 
-from base import C3Chart
+from .base import C3Chart
 from c3pyo.utils import is_iterable
+
 
 class BarChart(C3Chart):
     def __init__(self, **kwargs):
-        super(barChart, self).__init__(**kwargs)
+        super(BarChart, self).__init__(**kwargs)
         self.bar_ratio = kwargs.get('bar_ratio', 0.8)
         self.data = []
         self.chart_type = 'bar'
