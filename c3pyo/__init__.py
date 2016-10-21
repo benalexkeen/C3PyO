@@ -1,10 +1,7 @@
 from .base import C3Chart
-import base, line_chart, bar_chart, scatter_chart, pie_chart
-
-C3Chart = base.C3Chart
-LineChart = line_chart.LineChart
-SplineChart = line_chart.SplineChart
-StepChart = line_chart.StepChart
-BarChart = bar_chart.BarChart
-ScatterChart = scatter_chart.ScatterChart
-PieChart = pie_chart.PieChart
+from .line_chart import LineChart
+from .line_chart import SplineChart
+from .line_chart import StepChart
+from .bar_chart import BarChart
+from .scatter_chart import ScatterChart
+from .pie_chart import PieChart
