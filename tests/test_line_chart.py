@@ -59,8 +59,8 @@ class TestLineChart(unittest.TestCase):
 
         self.assertEqual(output['data']['x'], 'x')
         self.assertEqual(output['data']['columns'][0], ['x', 1, 2, 3])
-        self.assertEqual(output['data']['columns'][1], ['y_name_1', 14, 15, 16])
-        self.assertEqual(output['data']['columns'][2], ['y_name_2', 17, 18, 19])
+        self.assertIn(['y_name_1', 14, 15, 16], output['data']['columns'])
+        self.assertIn(['y_name_2', 17, 18, 19], output['data']['columns'])
 
         chart4 = LineChart()
         y_data = [20, 21, 22, 23, 24]
