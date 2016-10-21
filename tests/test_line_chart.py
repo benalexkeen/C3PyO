@@ -44,10 +44,10 @@ class TestLineChart(unittest.TestCase):
         self.assertIn("data", output)
         self.assertEqual(output['data']['x'], 'x_name')
         self.assertEqual(output['data']['type'], 'line')
-        self.assertEqual(output['data']['columns'][0], ['x_name', 2, 3, 4])
-        self.assertEqual(output['data']['columns'][1], ['y_name_1', 5, 6, 7])
-        self.assertEqual(output['data']['columns'][2], ['y_name_2', 8, 9, 10])
-        self.assertEqual(output['data']['columns'][3], ['y_name_3', 11, 12, 13])
+        self.assertIn(['x_name', 2, 3, 4], output['data']['columns'])
+        self.assertIn(['y_name_1', 5, 6, 7], output['data']['columns'])
+        self.assertIn(['y_name_2', 8, 9, 10], output['data']['columns'])
+        self.assertIn(['y_name_3', 11, 12, 13], output['data']['columns'])
         self.assertIs(output['legend']['show'], True)
 
     def test_line_chart_missing_x_data(self):

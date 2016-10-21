@@ -1,4 +1,6 @@
 # C3PyO
+[![Build Status](https://travis-ci.org/benalexkeen/C3PyO.svg?branch=master)](https://travis-ci.org/benalexkeen/C3PyO)
+
 C3PyO is a python wrapper for the data visualisation library C3.js
 It will provide a framework for including dynamic graphs in your python web projects.
 
