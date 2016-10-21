@@ -30,11 +30,12 @@ class LineChart(C3Chart):
         if is_iterable(data):
             self.x_data = data
         elif isinstance(data, dict):
-            x_data = data.values()[0]
-            if not is_iterable(x_data):
-                raise TypeError("x_data must be iterable")
+            x_data = data.values()
+            for item in x_data:
+                if not is_iterable(x_data):
+                    raise TypeError("x_data must be iterable")
             self.x_data = x_data
-            self.x_label = data.keys()[0]
+            self.x_label = list(data.keys())[0]
         else:
             raise TypeError("x_data must be iterable or of type dict")
 
