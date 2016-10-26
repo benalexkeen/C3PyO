@@ -143,6 +143,9 @@ class LineChart(C3Chart):
             'points': self.get_points_for_json(),
             'grid': self.get_grid_for_json(),
             'axis': self.get_axis_for_json(),
+            'zoom': self.get_zoom_for_json(),
+            'subchart': self.get_subchart_for_json(),
+            'size': self.get_size_for_json()
         }
 
         chart_json = json.dumps(chart_json)
