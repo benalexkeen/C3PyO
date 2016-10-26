@@ -5,6 +5,7 @@ import webbrowser
 import os
 import json
 import datetime
+import numbers
 
 from jinja2 import Environment, PackageLoader
 
@@ -33,10 +34,35 @@ class C3Chart(object):
         self.name = kwargs.get('name', 'C3 Chart')
         self.set_grid_lines(kwargs)
         self.set_legend(kwargs)
+        self.set_zoom(kwargs)
+        self.set_subchart(kwargs)
+        self.set_size(kwargs)
         self.x_label = kwargs.get('x_label', 'x')
         self.y_label = kwargs.get('y_label', 'y')
         self.chart_div = '#{}'.format(kwargs.get('chart_div', 'chart_div'))
         self.save_output = False
+
+    def set_subchart(kwargs):
+        self.subchart = kwargs.get('subchart', False)
+        if not isinstance(self.subchart, bool):
+            msg = 'zoom must be a boolean, received {} of type {}'
+            raise TypeError(msg.format(self.subchart, type(self.subchart)))
+
+    def set_zoom(self, kwargs):
+        self.zoom = kwargs.get('zoom', False)
+        if not isinstance(self.zoom, bool):
+            msg = 'zoom must be a boolean, received {} of type {}'
+            raise TypeError(msg.format(self.zoom, type(self.zoom)))
+
+    def set_size(self, kwargs):
+        self.height = kwargs.get('height', 0)
+        self.width = kwargs.get('width', 0)
+        if not isinstance(self.width, numbers.Number):
+            msg = 'width must be a number, received {} of type {}'
+            raise TypeError(msg.format(self.width, type(self.width)))
+        if not isinstance(self.height, numbers.Number):
+            msg = 'height must be a number, received {} of type {}'
+            raise TypeError(msg.format(self.height, type(self.height)))
 
     def set_grid_lines(self, kwargs):
         self.grid_lines = kwargs.get('grid_lines', False)
@@ -51,16 +77,18 @@ class C3Chart(object):
         assert isinstance(self.y_grid_lines, bool), msg.format('y')
 
     def set_legend(self, kwargs):
-        self.show_legend = kwargs.get('show_legend', False)
+        self.show_legend = kwargs.get('show_legend', True)
         self.legend_position = kwargs.get('legend_position')
         if not self.legend_position:
             self.legend_position = 'bottom'
         if self.legend_position:
             self.show_legend = True
-        msg = 'Currently only bottom, right and inset supported for legend_position'
-        assert self.legend_position in ('bottom', 'right', 'inset'), msg
-        msg = 'show_legend must be a boolean'
-        assert isinstance(self.show_legend, bool), msg
+        if self.legend_position not in ('bottom', 'right', 'inset'):
+            msg = 'Currently only bottom, right and inset supported for legend_position'
+            raise ValueError(msg)
+        if not isinstance(self.show_legend, bool):
+            msg = 'show_legend must be a boolean'
+            raise TypeError('show_legend must be a boolean')
 
     def get_legend_for_json(self):
         return {
@@ -69,7 +97,7 @@ class C3Chart(object):
         }
 
     def get_grid_for_json(self):
-        return {
+        grid = {
             'x': {
                 'show': self.x_grid_lines
             },
@@ -77,6 +105,23 @@ class C3Chart(object):
                 'show': self.y_grid_lines
             }
         }
+        if self.chart_type == 'bar':
+            grid['y']['lines'] = [{'value': 0}]
+
+    def get_zoom_for_json(self):
+        zoom = {
+            'enabled': self.zoom
+        }
+        return zoom
+
+    def get_subchart_for_json(self):
+        subchart = {
+            'enabled': self.subchart
+        }
+        return subchart
+
+    def get_size_for_json(self):
+        size 
 
     def reset_data(self):
         self.x_data = []
