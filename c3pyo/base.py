@@ -42,7 +42,7 @@ class C3Chart(object):
         self.chart_div = '#{}'.format(kwargs.get('chart_div', 'chart_div'))
         self.save_output = False
 
-    def set_subchart(kwargs):
+    def set_subchart(self, kwargs):
         self.subchart = kwargs.get('subchart', False)
         if not isinstance(self.subchart, bool):
             msg = 'zoom must be a boolean, received {} of type {}'
@@ -107,6 +107,7 @@ class C3Chart(object):
         }
         if self.chart_type == 'bar':
             grid['y']['lines'] = [{'value': 0}]
+        return grid
 
     def get_zoom_for_json(self):
         zoom = {
@@ -121,7 +122,12 @@ class C3Chart(object):
         return subchart
 
     def get_size_for_json(self):
-        size 
+        size = {}
+        if self.height:
+            size['height'] = self.height
+        if self.width:
+            size['width'] = self.width
+        return size
 
     def reset_data(self):
         self.x_data = []
