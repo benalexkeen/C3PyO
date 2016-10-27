@@ -2,20 +2,36 @@ import datetime
 
 # from c3pyo import C3Chart, LineChart, SplineChart, StepChart, BarChart, ScatterChart
 import c3pyo as c3
+import pandas as pd
 
-chart = c3.LineChart(legend_position='inset', area=True, zoom=True)
+# chart = c3.LineChart(legend_position='inset', area=True, zoom=True)
+#
+# dates = [datetime.date(2015, 3, x) for x in [1,2,3,4,5]]
+# datetimes = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
 
-dates = [datetime.date(2015, 3, x) for x in [1,2,3,4,5]]
-datetimes = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
-
-chart.set_x_data({"x1": datetimes})
-chart.set_y_data({"y1": [10,20,30,20,10], "y2": [20, 10, 30, 40, 0]})
-chart.plot()
+# chart.set_x_data({"x1": datetimes})
+# chart.set_y_data({"y1": [10,20,30,20,10], "y2": [20, 10, 30, 40, 0]})
+# chart.plot()
 
 ### Bar Chart
 
-# chart = BarChart()
+# chart = c3.BarChart()
 # chart.set_data({"a": 5, "b": 10, "c": 15, "d": 20})
+# chart.plot()
+
+# chart = c3.BarChart()
+# data = pd.Series([1, 2, 3, 4, 5, 6, 7])
+# chart.set_data(data)
+# chart.plot()
+
+# chart = c3.BarChart()
+# data = [1, 2, 3, 4, 5, 6, 7]
+# chart.set_data(data)
+# chart.plot()
+
+# chart = c3.BarChart()
+# data = pd.DataFrame([{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}])
+# chart.set_data(data)
 # chart.plot()
 
 ### Scatter Chart

@@ -1,8 +1,13 @@
-import json
 import datetime
 
-from .base import C3Chart
+from c3pyo import C3Chart
 from c3pyo.utils import is_iterable, DATE_FORMAT, DATETIME_FORMAT
+
+try:
+    import pandas as pd
+    PANDAS = True
+except ImportError:
+    PANDAS = False
 
 
 class LineChart(C3Chart):

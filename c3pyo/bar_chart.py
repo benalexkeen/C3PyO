@@ -1,7 +1,11 @@
-import json
-
-from .base import C3Chart
+from c3pyo import C3Chart
 from c3pyo.utils import is_iterable
+
+try:
+    import pandas as pd
+    PANDAS = True
+except ImportError:
+    PANDAS = False
 
 
 class BarChart(C3Chart):
@@ -10,15 +14,27 @@ class BarChart(C3Chart):
         self.bar_ratio = kwargs.get('bar_ratio', 0.8)
         self.data = []
         self.chart_type = 'bar'
+        self.x_labels_list = [self.x_label]
 
     def set_data(self, data):
         if is_iterable(data):
-            for i in data:
-                self.data.append([i])
+            for idx, value in enumerate(data):
+                self.data.append([idx, value])
         elif isinstance(data, dict):
             keys = sorted([key for key in data])
             for key in keys:
                 self.data.append([key, data[key]])
+        elif PANDAS:
+            if isinstance(data, pd.DataFrame):
+                for column in data.columns:
+                    data_series = [column]
+                    data_series.extend(list(data[column]))
+                    self.data.append(data_series)
+                self.x_labels = list(data.index)
+            elif isinstance(data, pd.Series):
+                for i in data.index:
+                    data_series = [i, data.loc[i]]
+                    self.data.append(data_series)
         else:
             raise TypeError("data must be iterable or of type dict")
 
@@ -32,7 +48,7 @@ class BarChart(C3Chart):
         return {
             'x': {
                 'type': 'category',
-                'categories': [self.x_label],
+                'categories': self.x_labels_list,
                 'label': self.x_label
             },
             'y': {

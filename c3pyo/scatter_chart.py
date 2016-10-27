@@ -1,8 +1,11 @@
-import json
-import datetime
-
-from .base import C3Chart
+from c3pyo import C3Chart
 from c3pyo.utils import is_iterable
+
+try:
+    import pandas as pd
+    PANDAS = True
+except ImportError:
+    PANDAS = False
 
 
 class ScatterChart(C3Chart):
