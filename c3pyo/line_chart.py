@@ -94,6 +94,9 @@ class LineChart(C3Chart):
         return all_data
 
     def get_data_for_json(self):
+        self.add_missing_data()
+        self.get_type()
+        self.check_chart_type()
         data = {
             'x': self.x_label,
             'columns': self.get_all_data_for_plot(),
@@ -131,25 +134,6 @@ class LineChart(C3Chart):
             }
         else:
             return {}
-
-    def get_chart_json(self):
-        self.add_missing_data()
-        self.get_type()
-        self.check_chart_type()
-        chart_json = {
-            'bindto': self.chart_div,
-            'data': self.get_data_for_json(),
-            'legend': self.get_legend_for_json(),
-            'points': self.get_points_for_json(),
-            'grid': self.get_grid_for_json(),
-            'axis': self.get_axis_for_json(),
-            'zoom': self.get_zoom_for_json(),
-            'subchart': self.get_subchart_for_json(),
-            'size': self.get_size_for_json()
-        }
-
-        chart_json = json.dumps(chart_json)
-        return chart_json
 
     def check_chart_type(self):
         valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step')

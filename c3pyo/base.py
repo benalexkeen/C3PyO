@@ -132,6 +132,7 @@ class C3Chart(object):
     def reset_data(self):
         self.x_data = []
         self.y_data = []
+        self.data = []
 
     def plot_graph(self, chart_json):
         with open(temp_path, 'w') as f:
@@ -142,11 +143,26 @@ class C3Chart(object):
                 ))
         webbrowser.open(url)
 
-    def get_chart_json(self):
-        msg = 'This is the chart base class'
-        raise NotImplementedError(msg)
-
     def json(self):
         res = self.get_chart_json()
         return res
 
+    def get_chart_json(self):
+        chart_json = {
+            'bindto': self.chart_div,
+            'data': self.get_data_for_json(),
+            'legend': self.get_legend_for_json(),
+            'grid': self.get_grid_for_json(),
+            'axis': self.get_axis_for_json(),
+            'zoom': self.get_zoom_for_json(),
+            'subchart': self.get_subchart_for_json(),
+            'size': self.get_size_for_json()
+        }
+        chart_json = json.dumps(chart_json)
+        return chart_json
+
+    def get_data_for_json(self):
+        raise NotImplementedError
+
+    def get_axis_for_json(self):
+        raise NotImplementedError
