@@ -33,6 +33,7 @@ class C3Chart(object):
         self.chart_type = None
         self.name = kwargs.get('name', 'C3 Chart')
         self.set_grid_lines(kwargs)
+        self.set_show_points(kwargs)
         self.set_legend(kwargs)
         self.set_zoom(kwargs)
         self.set_subchart(kwargs)
@@ -63,6 +64,11 @@ class C3Chart(object):
         if not isinstance(self.height, numbers.Number):
             msg = 'height must be a number, received {} of type {}'
             raise TypeError(msg.format(self.height, type(self.height)))
+
+    def set_show_points(self, kwargs):
+        self.show_points = kwargs.get('show_points', True)
+        msg = 'show_points must be a boolean'
+        assert isinstance(self.show_points, bool), msg
 
     def set_grid_lines(self, kwargs):
         self.grid_lines = kwargs.get('grid_lines', False)
@@ -129,9 +135,15 @@ class C3Chart(object):
             size['width'] = self.width
         return size
 
+    def get_points_for_json(self):
+        return {
+            'show': self.show_points
+        }
+
     def reset_data(self):
         self.x_data = []
         self.y_data = []
+        self.data = []
 
     def plot_graph(self, chart_json):
         with open(temp_path, 'w') as f:
@@ -142,11 +154,28 @@ class C3Chart(object):
                 ))
         webbrowser.open(url)
 
-    def get_chart_json(self):
-        msg = 'This is the chart base class'
-        raise NotImplementedError(msg)
-
     def json(self):
         res = self.get_chart_json()
         return res
+
+    def get_chart_json(self):
+        chart_json = {
+            'bindto': self.chart_div,
+            'data': self.get_data_for_json(),
+            'legend': self.get_legend_for_json(),
+            'grid': self.get_grid_for_json(),
+            'axis': self.get_axis_for_json(),
+            'zoom': self.get_zoom_for_json(),
+            'subchart': self.get_subchart_for_json(),
+            'size': self.get_size_for_json(),
+            'points': self.get_points_for_json(),
+        }
+        chart_json = json.dumps(chart_json)
+        return chart_json
+
+    def get_data_for_json(self):
+        raise NotImplementedError
+
+    def get_axis_for_json(self):
+        raise NotImplementedError
 

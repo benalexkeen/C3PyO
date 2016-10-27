@@ -9,17 +9,11 @@ class LineChart(C3Chart):
     def __init__(self, **kwargs):
         super(LineChart, self).__init__(**kwargs)
         self.set_area(kwargs)
-        self.set_show_points(kwargs)
         self.x_data = []
         self.y_data = []
         self.y_labels = []
         self.x_is_dates = False
         self.x_is_datetimes = False
-
-    def set_show_points(self, kwargs):
-        self.show_points = kwargs.get('show_points', True)
-        msg = 'show_points must be a boolean'
-        assert isinstance(self.show_points, bool), msg
 
     def set_area(self, kwargs):
         self.area = kwargs.get('area', False)
@@ -94,6 +88,9 @@ class LineChart(C3Chart):
         return all_data
 
     def get_data_for_json(self):
+        self.add_missing_data()
+        self.get_type()
+        self.check_chart_type()
         data = {
             'x': self.x_label,
             'columns': self.get_all_data_for_plot(),
@@ -104,11 +101,6 @@ class LineChart(C3Chart):
         elif self.x_is_dates:
             data['xFormat'] = DATE_FORMAT
         return data
-
-    def get_points_for_json(self):
-        return {
-            'show': self.show_points
-        }
 
     def get_axis_for_json(self):
         if self.x_is_datetimes:
@@ -131,25 +123,6 @@ class LineChart(C3Chart):
             }
         else:
             return {}
-
-    def get_chart_json(self):
-        self.add_missing_data()
-        self.get_type()
-        self.check_chart_type()
-        chart_json = {
-            'bindto': self.chart_div,
-            'data': self.get_data_for_json(),
-            'legend': self.get_legend_for_json(),
-            'points': self.get_points_for_json(),
-            'grid': self.get_grid_for_json(),
-            'axis': self.get_axis_for_json(),
-            'zoom': self.get_zoom_for_json(),
-            'subchart': self.get_subchart_for_json(),
-            'size': self.get_size_for_json()
-        }
-
-        chart_json = json.dumps(chart_json)
-        return chart_json
 
     def check_chart_type(self):
         valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step')

@@ -35,16 +35,8 @@ class PieChart(C3Chart):
             'type': self.chart_type
             }
 
-    def get_chart_json(self):
-        chart_json = {
-            'bindto': self.chart_div,
-            'data': self.get_data_for_json(),
-            'legend': self.get_legend_for_json(),
-            'zoom': self.get_zoom_for_json(),
-            'size': self.get_size_for_json(),
-        }
-        chart_json = json.dumps(chart_json)
-        return chart_json
+    def get_axis_for_json(self):
+        return {}
 
     def plot(self):
         chart_json = self.get_chart_json()
