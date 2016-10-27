@@ -9,17 +9,11 @@ class LineChart(C3Chart):
     def __init__(self, **kwargs):
         super(LineChart, self).__init__(**kwargs)
         self.set_area(kwargs)
-        self.set_show_points(kwargs)
         self.x_data = []
         self.y_data = []
         self.y_labels = []
         self.x_is_dates = False
         self.x_is_datetimes = False
-
-    def set_show_points(self, kwargs):
-        self.show_points = kwargs.get('show_points', True)
-        msg = 'show_points must be a boolean'
-        assert isinstance(self.show_points, bool), msg
 
     def set_area(self, kwargs):
         self.area = kwargs.get('area', False)
@@ -107,11 +101,6 @@ class LineChart(C3Chart):
         elif self.x_is_dates:
             data['xFormat'] = DATE_FORMAT
         return data
-
-    def get_points_for_json(self):
-        return {
-            'show': self.show_points
-        }
 
     def get_axis_for_json(self):
         if self.x_is_datetimes:
