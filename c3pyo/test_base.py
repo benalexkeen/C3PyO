@@ -4,13 +4,28 @@ import datetime
 import c3pyo as c3
 import pandas as pd
 
-# chart = c3.LineChart(legend_position='inset', area=True, zoom=True)
+### Line Chart
+
+# chart = c3.LineChart(legend_position='inset', area=True)
 #
 # dates = [datetime.date(2015, 3, x) for x in [1,2,3,4,5]]
 # datetimes = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
 
-# chart.set_x_data({"x1": datetimes})
-# chart.set_y_data({"y1": [10,20,30,20,10], "y2": [20, 10, 30, 40, 0]})
+# chart.set_data([[1, 2, 3, 4, 5], [5, 10, 15, 20, 25]])
+# chart.set_data([[1, 2, 3, 4, 5], [5, 10, 15, 20, 25], [3, 6, 9, 12, 15], [10, 20, 30, 40, 50]])
+# chart.set_data({
+#     'data1': {
+#         'x': [1, 2, 3, 4, 5], 
+#         'y': [3, 6, 9, 12, 15]
+#     },
+#     'data2': {
+#         'x': [1.5, 2.5, 3.5, 4.5, 5.5], 
+#         'y': [5, 10, 15, 20, 25]
+#     },
+# })
+# df = pd.DataFrame([{'a': 1, 'b': 2}, {'a': 2, 'b': 4}, {'a': 3, 'b': 6}, {'a': 4, 'b': 8}])
+# df = pd.Series([1,2,3,4,5,6,7,8,100])
+# chart.set_data(df)
 # chart.plot()
 
 ### Bar Chart
@@ -59,6 +74,10 @@ import pandas as pd
 
 # chart = c3.PieChart()
 # chart.set_data({"hello": 1, "world": 2, "foo": 4, "bar": 17})
+# chart.plot()
+
+# chart = c3.PieChart()
+# chart.set_data(pd.Series([1,2,3,4,5,6,7,8,100]))
 # chart.plot()
 
 ### Donut Chart
