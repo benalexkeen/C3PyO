@@ -1,4 +1,5 @@
 import datetime
+import numbers
 
 from c3pyo import C3Chart
 from c3pyo.utils import is_iterable, DATE_FORMAT, DATETIME_FORMAT
@@ -14,54 +15,92 @@ class LineChart(C3Chart):
     def __init__(self, **kwargs):
         super(LineChart, self).__init__(**kwargs)
         self.set_area(kwargs)
-        self.x_data = []
-        self.y_data = []
+        self.data = []
         self.y_labels = []
         self.x_is_dates = False
         self.x_is_datetimes = False
+        self.x_s = {}
 
     def set_area(self, kwargs):
         self.area = kwargs.get('area', False)
         msg = 'area must be a boolean' 
         assert isinstance(self.area, bool), msg
 
-    def set_x_data(self, data):
-        if is_iterable(data):
-            self.x_data = data
-        elif isinstance(data, dict):
-            assert len(data) == 1, 'Currently only 1 x axis is supported'
-            x_keys = [key for key in data.keys()]
-            for key in x_keys:
-                if not is_iterable(data[key]):
-                    raise TypeError("x_data must be iterable")
-                self.x_data = data[key]
-            self.x_label = x_keys[0]
-        else:
-            raise TypeError("x_data must be iterable or of type dict")
-
-        x_is_dates = [isinstance(x, datetime.date) for x in self.x_data]
-        x_is_datetimes = [isinstance(x, datetime.datetime) for x in self.x_data]
-
-        if all(x_is_dates) and not all(x_is_datetimes):
-            self.x_is_dates = True
-            self.x_data = [x.strftime(DATE_FORMAT) for x in self.x_data]
-        if all(x_is_datetimes):
-            self.x_is_datetimes = True
-            self.x_data = [x.strftime(DATETIME_FORMAT) for x in self.x_data]
-
-    def set_y_data(self, data):
+    def set_data(self, data):
         if isinstance(data, dict):
-            for key in data:
-                self.y_labels.append(key)
-                self.y_data.append(data[key])
-        elif is_iterable(data):
-            is_iterable_of_iterables = [is_iterable(x) for x in data]
-            if all([is_iterable(x) for x in data]):
-                self.y_data.append(data)
-            elif not any(is_iterable_of_iterables):
-                self.y_data.append(data)
+            if 'x' in data:
+                x_data = ['x']
+                x_data.extend(data['x'])
+                self.data.append(x_data)
+                y_data = ['y']
+                y_data.extend(data['y'])
+                self.data.append(y_data)
+                self.x_s['y'] = 'x'
             else:
-                raise TypeError("y_data cannot be composed of iterables and non-iterables")
+                for key in sorted(list(data.keys())):
+                    msg = "missing '{} in data for key {}"
+                    assert 'x' in data[key], msg.format('x', key)
+                    assert 'y' in data[key], msg.format('y', key)
+                    x_label = 'x_{}'.format(key)
+                    self.x_s[key] = x_label
+                    key_data_x = [x_label]
+                    key_data_x.extend(data[key]['x'])
+                    key_data_y = [key]
+                    key_data_y.extend(data[key]['y'])
+                    self.y_labels.append(key)
+                    self.data.append(key_data_x)
+                    self.data.append(key_data_y)
+        elif is_iterable(data):
+            if all([isinstance(x, numbers.Number) for x in data]):
+                x_data = ['x']
+                y_data = ['y']
+                for idx, value in enumerate(data):
+                    x_data.append(idx)
+                    y_data.append(value)
+                self.data.append(x_data)
+                self.data.append(y_data)
+                self.x_s['y'] = 'x'
+            else:
+                msg = "lineChart data must have an even number of collections, received {}"
+                assert len(data) % 2 == 0, msg.format(data)
+                msg = "Data must be an collection of collections, received {} of type {}"
+                for idx, iterable in enumerate(data):
+                    name_idx = idx // 2
+                    x_name = "x{}".format(name_idx)
+                    y_name = "y{}".format(name_idx)
+                    if idx % 2 == 0:
+                        self.x_s[y_name] = x_name
+                        data_item = [x_name]
+                    else:
+                        data_item = [y_name]
+                    data_item.extend(iterable)
+                    self.data.append(data_item)
+        elif PANDAS:
+            if isinstance(data, pd.DataFrame):
+                if data.index.name:
+                    x_label = data.index.name
+                else:
+                    x_label = 'x'
+                x_data = [x_label]
+                x_data.extend(list(data.index))
+                self.data.append(x_data)
+                for column in data:
+                    self.x_s[column] = x_label
+                    col_data = [column]
+                    col_data.extend(list(data[column]))
+                    self.data.append(col_data)
+            elif isinstance(data, pd.Series):
+                if data.name:
+                    y_label = data.name
+                else:
+                    y_label = 'y'
+                self.x_s[y_label] = 'x'
+                x_data = ['x']
+                x_data.extend(list(data.index))
+                self.data.append(x_data)
+                y_data = [y_label]
+                y_data.extend(list(data))
+                self.data.append(y_data)
         else:
             raise TypeError("y_data must be a dict or an iterable")
 
@@ -71,35 +110,32 @@ class LineChart(C3Chart):
         else:
             self.chart_type = 'line'
 
-    def add_missing_data(self):
-        if not self.y_data:
-            raise ValueError("No y values, set values using set_y_data")
-        if not self.x_data:
-            self.x_data = [(x + 1) for x in range(len(self.y_data[0]))]
-        if len(self.y_labels) < len(self.y_data):
-            for i in range(len(self.y_labels), len(self.y_data)):
-                self.y_labels.append("y{}".format(i+1))
-
     def get_all_data_for_plot(self):
-        x_data = [str(self.x_label)]
-        x_data.extend(self.x_data)
-        y_data = []
-        for i in range(len(self.y_data)):
-            y_series = [str(self.y_labels[i])]
-            y_series.extend(self.y_data[i])
-            y_data.append(y_series)
-        all_data = [x_data]
-        all_data.extend(y_data)
+        x_is_dates = False
+        x_is_datetimes = False
+        for x_key in self.x_s:
+            for item in self.data:
+                if item[0] == x_key:
+                    x_is_dates = [isinstance(x, datetime.date) for x in item[1:]]
+                    x_is_datetimes = [isinstance(x, datetime.datetime) for x in item[1:]]
+
+        if all(x_is_dates) and not all(x_is_datetimes):
+            self.x_is_dates = True
+            self.x_data = [x.strftime(DATE_FORMAT) for x in self.x_data]
+        if all(x_is_datetimes):
+            self.x_is_datetimes = True
+            self.x_data = [x.strftime(DATETIME_FORMAT) for x in self.x_data]
+
+        all_data = self.data
         return all_data
 
     def get_data_for_json(self):
-        self.add_missing_data()
         self.get_type()
         self.check_chart_type()
         data = {
-            'x': self.x_label,
             'columns': self.get_all_data_for_plot(),
-            'type': self.chart_type
+            'type': self.chart_type,
+            'xs': self.x_s
         }
         if self.x_is_datetimes:
             data['xFormat'] = DATETIME_FORMAT
