@@ -1,8 +1,13 @@
-import json
 import numbers
 
-from .base import C3Chart
+from c3pyo import C3Chart
 from c3pyo.utils import is_iterable
+
+try:
+    import pandas as pd
+    PANDAS = True
+except ImportError:
+    PANDAS = False
 
 
 class PieChart(C3Chart):
@@ -26,8 +31,16 @@ class PieChart(C3Chart):
                 else:
                     msg = 'Expected number, received {} of type {}'
                     raise TypeError(msg.format(data[key], type(key)))
+        elif PANDAS:
+            if isinstance(data, pd.Series):
+                for idx in data.index:
+                    self.data.append([idx, data.loc[idx]])
+            elif isinstance(data, pd.DataFrame):
+                msg = "DataFrames not currently supported for {} charts, use Series"
+                raise TypeError(msg.format(self.chart_type))
         else:
-            raise TypeError("x_data must be a collection or dict, received {}".format(type(data)))
+            msg = "data must be a collection or dict, received {} of type {}"
+            raise TypeError(msg.format(data, type(data)))
 
     def get_data_for_json(self):
         return {
