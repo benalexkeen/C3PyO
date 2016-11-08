@@ -14,98 +14,48 @@ class BarChart(C3Chart):
         self.bar_ratio = kwargs.get('bar_ratio', 0.8)
         self.data = []
         self.chart_type = 'bar'
-        self.x_labels_list = [self.x_label]
+        self.y_number = 1
+        self.stacked_bar = kwargs.get('stacked', False)
+        self.x_labels = kwargs.get('x_ticklabels', [])
 
-    def set_data(self, data):
-        if is_iterable(data):
-            for idx, value in enumerate(data):
-                self.data.append([idx, value])
-        elif isinstance(data, dict):
-            keys = sorted([key for key in data])
-            for key in keys:
-                self.data.append([key, data[key]])
-        elif PANDAS:
-            if isinstance(data, pd.DataFrame):
-                for column in data.columns:
-                    data_series = [column]
-                    data_series.extend(list(data[column]))
-                    self.data.append(data_series)
-                self.x_labels = list(data.index)
-            elif isinstance(data, pd.Series):
-                for i in data.index:
-                    data_series = [i, data.loc[i]]
-                    self.data.append(data_series)
+    def set_xticklabels(self, ticklabels):
+        self.x_labels.extend(ticklabels)
+
+    def stacked(self, stacked_bar):
+        if not isinstance(stacked_bar, bool):
+            raise TypeError("arg for stacked must be boolean, received {}".format(type(stacked_bar)))
+        self.stacked_bar = stacked_bar
+
+    def plot(self, y, color=None, label=None):
+        if not label:
+            y_series_label = "y{}".format(self.y_number)
         else:
-            raise TypeError("data must be iterable or of type dict")
+            y_series_label = label
+        y_data = [y_series_label]
+        y_data.extend(list(y))
+        self.data.append(y_data)
 
     def get_data_for_json(self):
-        return {
+        data = {
             'columns': self.data,
             'type': self.chart_type
         }
+        if self.stacked_bar:
+            data['groups'] = [[series[0] for series in self.data]]
+        return data
 
     def get_axis_for_json(self):
         return {
             'x': {
                 'type': 'category',
-                'categories': self.x_labels_list,
-                'label': self.x_label
+                'categories': self.x_labels,
+                'label': self.label_for_x
             },
             'y': {
-                'label': self.y_label
+                'label': self.label_for_y
             }
         }
 
-    def plot(self):
+    def show(self):
         chart_json = self.get_chart_json()
         self.plot_graph(chart_json)
-
-
-class MultiBarChart(BarChart):
-    def __init__(self, **kwargs):
-        super(MultiBarChart, self).__init__(**kwargs)
-        self.set_stacked(kwargs)
-        self.y_labels = []
-        self.x_labels = []
-
-    def set_stacked(self, kwargs):
-        self.stacked = kwargs.get('stacked', False)
-        msg = 'stacked flag must be a boolean'
-        assert isinstance(self.stacked, bool), msg
-
-    def set_data(self, data):
-        if isinstance(data, dict):
-            y_keys = [key for key in data.keys()]
-            y_keys = sorted(y_keys)
-            for key in y_keys:
-                if not is_iterable(data[key]):
-                    msg = "data series must be iterable, received {} of type {}"
-                    raise TypeError(msg.format(data[key], type(data[key])))
-                data_series = [key]
-                data_series.extend(data[key])
-                self.data.append(data_series)
-                self.y_labels.append(key)
-        else:
-            msg = "data type must be dict, received {} of type {}"
-            raise TypeError(msg.format(data, type(data)))
-
-    def set_x_labels(self, x_labels):
-        msg = "x labels must be iterable, received {} of type {}"
-        assert is_iterable(x_labels), msg.format(x_labels, type(x_labels))
-        self.x_labels = ['x']
-        self.x_labels.extend(x_labels)
-
-    def get_data_for_json(self):
-        data = {
-            'type': 'bar'
-        }
-        if self.stacked:
-            data['groups'] = [self.y_labels]
-        if self.x_labels:
-            self.data.append(self.x_labels)
-            data['x'] = 'x'
-        data['columns'] = self.data
-        return data
-
-    def get_axis_for_json(self):
-        return {'x': {'type': 'category'}}

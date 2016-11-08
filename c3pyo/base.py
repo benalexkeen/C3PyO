@@ -34,7 +34,7 @@ class C3Chart(object):
         self.name = kwargs.get('name', 'C3 Chart')
         self.show_points = kwargs.get('show_points', True)
         self.show_legend = kwargs.get('show_legend', True)
-        self.legend_position = kwargs.get('legend_position', 'bottom')
+        self.show_legend_position = kwargs.get('legend_position', 'bottom')
         self.label_for_x = kwargs.get('xlabel', None)
         self.label_for_y = kwargs.get('ylabel', None)
         self.x_grid_lines = kwargs.get('gridlines', False)
@@ -73,11 +73,6 @@ class C3Chart(object):
             raise TypeError("arg for subchart must be boolean, received {}".format(type(show_subchart)))
         self.show_subchart = show_subchart
 
-    def set_subchart(self, kwargs):
-        if not isinstance(self.subchart, bool):
-            msg = 'zoom must be a boolean, received {} of type {}'
-            raise TypeError(msg.format(self.subchart, type(self.subchart)))
-
     def height(self, height_value):
         if not isinstance(height_value, numbers.Number):
             raise TypeError('height must be a number, received {} of type {}'.format(type(height_value)))
@@ -99,23 +94,16 @@ class C3Chart(object):
         if y is not None:
             self.y_grid_lines = y
 
-    def set_legend(self, kwargs):
+    def legend_position(self, position):
+        if not position in ('bottom', 'right', 'inset'):
+            raise ValueError('Currently only bottom, right and inset supported for legend_position')
+        self.show_legend_position = position
 
-        if not self.legend_position:
-            self.legend_position = 'bottom'
-        if self.legend_position:
-            self.show_legend = True
-        if self.legend_position not in ('bottom', 'right', 'inset'):
-            msg = 'Currently only bottom, right and inset supported for legend_position'
-            raise ValueError(msg)
-        if not isinstance(self.show_legend, bool):
-            msg = 'show_legend must be a boolean'
-            raise TypeError('show_legend must be a boolean')
 
     def get_legend_for_json(self):
         return {
             'show': self.show_legend,
-            'position': self.legend_position
+            'position': self.show_legend_position
         }
 
     def get_grid_for_json(self):
@@ -164,8 +152,7 @@ class C3Chart(object):
     def plot_graph(self, chart_json):
         with open(temp_path, 'w') as f:
             f.write(template.render(
-                title=self.name, 
-                body='Hello, World',
+                title=self.name,
                 chart_json=chart_json,
                 ))
         webbrowser.open(url)
@@ -186,7 +173,6 @@ class C3Chart(object):
             'size': self.get_size_for_json(),
             'points': self.get_points_for_json(),
         }
-        print chart_json
         chart_json = json.dumps(chart_json)
         return chart_json
 
@@ -195,4 +181,3 @@ class C3Chart(object):
 
     def get_axis_for_json(self):
         raise NotImplementedError
-
