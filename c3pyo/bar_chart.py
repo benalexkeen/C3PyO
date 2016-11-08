@@ -22,6 +22,7 @@ class BarChart(C3Chart):
     def plot(self, y, color=None, label=None):
         if not label:
             y_series_label = "y{}".format(self.y_number)
+            self.y_number += 1
         else:
             y_series_label = label
         y_data = [y_series_label]

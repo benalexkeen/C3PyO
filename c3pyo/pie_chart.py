@@ -1,13 +1,6 @@
 import numbers
 
 from c3pyo import C3Chart
-from c3pyo.utils import is_iterable
-
-try:
-    import pandas as pd
-    PANDAS = True
-except ImportError:
-    PANDAS = False
 
 
 class PieChart(C3Chart):
@@ -15,32 +8,19 @@ class PieChart(C3Chart):
         super(PieChart, self).__init__(**kwargs)
         self.data = []
         self.chart_type = 'pie'
+        self.y_number = 1
 
-    def set_data(self, data):
-        if is_iterable(data):
-            for idx, value in enumerate(data):
-                if isinstance(value, numbers.Number):
-                    self.data.append(['y{}'.format(idx+1), value])
-                else:
-                    msg = 'Expected collection of numbers, received {}'
-                    raise TypeError(msg.format(value))
-        elif isinstance(data, dict):
-            for key in data:
-                if isinstance(data[key], numbers.Number):
-                    self.data.append([key, data[key]])
-                else:
-                    msg = 'Expected number, received {} of type {}'
-                    raise TypeError(msg.format(data[key], type(key)))
-        elif PANDAS:
-            if isinstance(data, pd.Series):
-                for idx in data.index:
-                    self.data.append([idx, data.loc[idx]])
-            elif isinstance(data, pd.DataFrame):
-                msg = "DataFrames not currently supported for {} charts, use Series"
-                raise TypeError(msg.format(self.chart_type))
+    def plot(self, y, color=None, label=None):
+        if not label:
+            y_series_label = "y{}".format(self.y_number)
         else:
-            msg = "data must be a collection or dict, received {} of type {}"
-            raise TypeError(msg.format(data, type(data)))
+            y_series_label = label
+        if isinstance(y, numbers.Number):
+            y_data = [y_series_label, y]
+        else:
+            y_data = [y_series_label]
+            y_data.extend(y)
+        self.data.append(y_data)
 
     def get_data_for_json(self):
         return {
@@ -51,7 +31,7 @@ class PieChart(C3Chart):
     def get_axis_for_json(self):
         return {}
 
-    def plot(self):
+    def show(self):
         chart_json = self.get_chart_json()
         self.plot_graph(chart_json)
 
@@ -60,3 +40,13 @@ class DonutChart(PieChart):
     def __init__(self, **kwargs):
         super(DonutChart, self).__init__(**kwargs)
         self.chart_type = 'donut'
+        self.donut_title_value = kwargs.get('donut_title', None)
+
+    def donut_title(self, title):
+        self.donut_title_value = title
+
+    def get_donut_for_json(self):
+        if not self.donut_title_value:
+            return None
+        else:
+            return {'title': self.donut_title_value}

@@ -144,6 +144,9 @@ class C3Chart(object):
             'show': self.show_points
         }
 
+    def get_donut_for_json(self):
+        return {}
+
     def reset_data(self):
         self.x_data = []
         self.y_data = []
@@ -172,6 +175,7 @@ class C3Chart(object):
             'subchart': self.get_subchart_for_json(),
             'size': self.get_size_for_json(),
             'points': self.get_points_for_json(),
+            'donut': self.get_donut_for_json()
         }
         chart_json = json.dumps(chart_json)
         return chart_json

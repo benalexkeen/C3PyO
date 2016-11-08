@@ -24,6 +24,7 @@ class LineChart(C3Chart):
             raise ValueError("The length of the two passed arrays for x and y are different")
         if not label:
             y_series_label = "y{}".format(self.y_number)
+            self.y_number += 1
         else:
             y_series_label = label
         x_series_label = "x_{}".format(y_series_label)
