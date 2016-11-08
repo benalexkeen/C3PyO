@@ -1,15 +1,15 @@
-# import datetime
+import datetime
 
 # from c3pyo import C3Chart, LineChart, SplineChart, StepChart, BarChart, ScatterChart
-# import c3pyo as c3
+import c3pyo as c3
 # import pandas as pd
 
 ### Line Chart
 
 # chart = c3.LineChart(legend_position='inset', area=True)
 #
-# dates = [datetime.date(2015, 3, x) for x in [1,2,3,4,5]]
-# datetimes = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
+dates = [datetime.date(2015, 3, x) for x in [1,2,3,4,5]]
+datetimes = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
 
 # chart.set_data([[1, 2, 3, 4, 5], [5, 10, 15, 20, 25]])
 # chart.set_data([[1, 2, 3, 4, 5], [5, 10, 15, 20, 25], [3, 6, 9, 12, 15], [10, 20, 30, 40, 50]])
@@ -27,6 +27,18 @@
 # df = pd.Series([1,2,3,4,5,6,7,8,100])
 # chart.set_data(df)
 # chart.plot()
+
+years = [1950, 1960, 1970, 1980, 1990, 2000, 2010]
+gdp = [380.2, 543.3, 1875.9, 2862.5, 5979.6, 10289.7, 14958.3]
+plt = c3.ScatterChart()
+plt.plot(years, gdp, color='green', marker='o', label='gdp for year')
+plt.xlabel("years")
+plt.ylabel("Billions of $")
+plt.gridlines(x=True)
+plt.area(True)
+plt.show()
+
+
 
 ### Bar Chart
 

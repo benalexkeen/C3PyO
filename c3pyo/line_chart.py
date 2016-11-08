@@ -16,96 +16,40 @@ class LineChart(C3Chart):
         super(LineChart, self).__init__(**kwargs)
         self.set_area(kwargs)
         self.data = []
-        self.y_labels = []
         self.x_is_dates = False
         self.x_is_datetimes = False
         self.x_s = {}
+        self.y_number = 1
 
     def set_area(self, kwargs):
-        self.area = kwargs.get('area', False)
+        self.show_area = kwargs.get('area', False)
         msg = 'area must be a boolean' 
-        assert isinstance(self.area, bool), msg
+        assert isinstance(self.show_area, bool), msg
 
-    def set_data(self, data):
-        if isinstance(data, dict):
-            if 'x' in data:
-                x_data = ['x']
-                x_data.extend(data['x'])
-                self.data.append(x_data)
-                y_data = ['y']
-                y_data.extend(data['y'])
-                self.data.append(y_data)
-                self.x_s['y'] = 'x'
-            else:
-                for key in sorted(list(data.keys())):
-                    msg = "missing '{} in data for key {}"
-                    assert 'x' in data[key], msg.format('x', key)
-                    assert 'y' in data[key], msg.format('y', key)
-                    x_label = 'x_{}'.format(key)
-                    self.x_s[key] = x_label
-                    key_data_x = [x_label]
-                    key_data_x.extend(data[key]['x'])
-                    key_data_y = [key]
-                    key_data_y.extend(data[key]['y'])
-                    self.y_labels.append(key)
-                    self.data.append(key_data_x)
-                    self.data.append(key_data_y)
-        elif is_iterable(data):
-            if all([isinstance(x, numbers.Number) for x in data]):
-                x_data = ['x']
-                y_data = ['y']
-                for idx, value in enumerate(data):
-                    x_data.append(idx)
-                    y_data.append(value)
-                self.data.append(x_data)
-                self.data.append(y_data)
-                self.x_s['y'] = 'x'
-            else:
-                msg = "lineChart data must have an even number of collections, received {}"
-                assert len(data) % 2 == 0, msg.format(data)
-                msg = "Data must be an collection of collections, received {} of type {}"
-                for idx, iterable in enumerate(data):
-                    name_idx = idx // 2
-                    x_name = "x{}".format(name_idx)
-                    y_name = "y{}".format(name_idx)
-                    if idx % 2 == 0:
-                        self.x_s[y_name] = x_name
-                        data_item = [x_name]
-                    else:
-                        data_item = [y_name]
-                    data_item.extend(iterable)
-                    self.data.append(data_item)
-        elif PANDAS:
-            if isinstance(data, pd.DataFrame):
-                if data.index.name:
-                    x_label = data.index.name
-                else:
-                    x_label = 'x'
-                x_data = [x_label]
-                x_data.extend(list(data.index))
-                self.data.append(x_data)
-                for column in data:
-                    self.x_s[column] = x_label
-                    col_data = [column]
-                    col_data.extend(list(data[column]))
-                    self.data.append(col_data)
-            elif isinstance(data, pd.Series):
-                if data.name:
-                    y_label = data.name
-                else:
-                    y_label = 'y'
-                self.x_s[y_label] = 'x'
-                x_data = ['x']
-                x_data.extend(list(data.index))
-                self.data.append(x_data)
-                y_data = [y_label]
-                y_data.extend(list(data))
-                self.data.append(y_data)
+    def plot(self, x, y, color=None, marker='o', label=None):
+        if not len(x) == len(y):
+            raise ValueError("The length of the two passed arrays for x and y are different")
+        if not label:
+            y_series_label = "y{}".format(self.y_number)
         else:
-            raise TypeError("y_data must be a dict or an iterable")
+            y_series_label = label
+        x_series_label = "x_{}".format(y_series_label)
+        x_data = [x_series_label]
+        x_data.extend(list(x))
+        y_data = [y_series_label]
+        y_data.extend(list(y))
+        self.data.append(x_data)
+        self.data.append(y_data)
+        self.x_s[y_series_label] = x_series_label
+        if marker == 'o':
+            self.show_points = True
+        elif marker is None:
+            self.show_points = False
+        else:
+            raise ValueError("Currently only 'o' and None supported for marker")
 
     def get_type(self):
-        if self.area:
+        if self.show_area:
             self.chart_type = 'area'
         else:
             self.chart_type = 'line'
@@ -145,31 +89,42 @@ class LineChart(C3Chart):
 
     def get_axis_for_json(self):
         if self.x_is_datetimes:
-            return {
+            axis = {
                 'x': {
                     'type': 'timeseries',
                     'tick': {
                         'format': DATETIME_FORMAT
-                    }
-                }
+                    },
+                },
+                'y': {}
             }
         elif self.x_is_dates:
-            return {
+            axis = {
                 'x': {
                     'type': 'timeseries',
                     'tick': {
                         'format': DATE_FORMAT
-                    }
-                }
+                    },
+                },
+                'y': {}
             }
         else:
-            return {}
+            axis = {
+                'x': {},
+                'y': {}
+            }
+        if self.label_for_x:
+            axis['x']['label'] = self.label_for_x
+        if self.label_for_y:
+            axis['y']['label'] = self.label_for_y
+        return axis
+
 
     def check_chart_type(self):
-        valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step')
+        valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step', 'scatter')
         assert self.chart_type in valid_types, self.chart_type
 
-    def plot(self):
+    def show(self):
         chart_json = self.get_chart_json()
         self.plot_graph(chart_json)
 
@@ -179,7 +134,7 @@ class SplineChart(LineChart):
         super(SplineChart, self).__init__(**kwargs)
 
     def get_type(self):
-        if self.area:
+        if self.show_area:
             self.chart_type = 'area-spline'
         else:
             self.chart_type = 'spline'
@@ -190,7 +145,15 @@ class StepChart(LineChart):
         super(StepChart, self).__init__(**kwargs)
 
     def get_type(self):
-        if self.area:
+        if self.show_area:
             self.chart_type = 'area-step'
         else:
             self.chart_type = 'step'
+
+
+class ScatterChart(LineChart):
+    def __init__(self, **kwargs):
+        super(ScatterChart, self).__init__(**kwargs)
+
+    def get_type(self):
+        self.chart_type = 'scatter'
