@@ -1,11 +1,4 @@
 from c3pyo import C3Chart
-from c3pyo.utils import is_iterable
-
-try:
-    import pandas as pd
-    PANDAS = True
-except ImportError:
-    PANDAS = False
 
 
 class BarChart(C3Chart):
