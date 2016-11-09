@@ -32,74 +32,78 @@ class C3Chart(object):
     def __init__(self, **kwargs):
         self.chart_type = None
         self.name = kwargs.get('name', 'C3 Chart')
-        self.set_grid_lines(kwargs)
-        self.set_show_points(kwargs)
-        self.set_legend(kwargs)
-        self.set_zoom(kwargs)
-        self.set_subchart(kwargs)
-        self.set_size(kwargs)
-        self.x_label = kwargs.get('x_label', 'x')
-        self.y_label = kwargs.get('y_label', 'y')
+        self.show_points = kwargs.get('show_points', True)
+        self.show_legend = kwargs.get('show_legend', True)
+        self.show_legend_position = kwargs.get('legend_position', 'bottom')
+        self.label_for_x = kwargs.get('xlabel', None)
+        self.label_for_y = kwargs.get('ylabel', None)
+        self.x_grid_lines = kwargs.get('gridlines', False)
+        self.y_grid_lines = kwargs.get('gridlines', False)
+        self.show_area = kwargs.get('area', False)
+        self.zoom = kwargs.get('zoom', False)
+        self.show_subchart = kwargs.get('subchart', False)
+        self.height_value = kwargs.get('height', 0)
+        self.width_value = kwargs.get('width', 0)
         self.chart_div = '#{}'.format(kwargs.get('chart_div', 'chart_div'))
         self.save_output = False
 
-    def set_subchart(self, kwargs):
-        self.subchart = kwargs.get('subchart', False)
-        if not isinstance(self.subchart, bool):
-            msg = 'zoom must be a boolean, received {} of type {}'
-            raise TypeError(msg.format(self.subchart, type(self.subchart)))
+    def xlabel(self, label):
+        self.label_for_x = label
 
-    def set_zoom(self, kwargs):
-        self.zoom = kwargs.get('zoom', False)
-        if not isinstance(self.zoom, bool):
-            msg = 'zoom must be a boolean, received {} of type {}'
-            raise TypeError(msg.format(self.zoom, type(self.zoom)))
+    def ylabel(self, label):
+        self.label_for_y = label
 
-    def set_size(self, kwargs):
-        self.height = kwargs.get('height', 0)
-        self.width = kwargs.get('width', 0)
-        if not isinstance(self.width, numbers.Number):
-            msg = 'width must be a number, received {} of type {}'
-            raise TypeError(msg.format(self.width, type(self.width)))
-        if not isinstance(self.height, numbers.Number):
-            msg = 'height must be a number, received {} of type {}'
-            raise TypeError(msg.format(self.height, type(self.height)))
+    def area(self, show_area):
+        if not isinstance(show_area, bool):
+            raise TypeError("arg for area must be boolean, received {}".format(type(show_area)))
+        self.show_area = show_area
 
-    def set_show_points(self, kwargs):
-        self.show_points = kwargs.get('show_points', True)
-        msg = 'show_points must be a boolean'
-        assert isinstance(self.show_points, bool), msg
+    def legend(self, show_legend):
+        if not isinstance(show_legend, bool):
+            raise TypeError("arg for legend must be boolean, received {}".format(type(show_legend)))
+        self.show_legend = show_legend
 
-    def set_grid_lines(self, kwargs):
-        self.grid_lines = kwargs.get('grid_lines', False)
-        if self.grid_lines:
-            self.x_grid_lines = True
-            self.y_grid_lines = True
-        else:
-            self.x_grid_lines = kwargs.get('x_grid_lines', False)
-            self.y_grid_lines = kwargs.get('y_grid_lines', False)
-        msg = '{}_grid_lines must be a boolean'
-        assert isinstance(self.x_grid_lines, bool), msg.format('x')
-        assert isinstance(self.y_grid_lines, bool), msg.format('y')
+    def zoom(self, zoom_on_off):
+        if not isinstance(zoom_on_off, bool):
+            raise TypeError("arg for zoom must be boolean, received {}".format(type(zoom_on_off)))
+        self.zoom = zoom_on_off
 
-    def set_legend(self, kwargs):
-        self.show_legend = kwargs.get('show_legend', True)
-        self.legend_position = kwargs.get('legend_position')
-        if not self.legend_position:
-            self.legend_position = 'bottom'
-        if self.legend_position:
-            self.show_legend = True
-        if self.legend_position not in ('bottom', 'right', 'inset'):
-            msg = 'Currently only bottom, right and inset supported for legend_position'
-            raise ValueError(msg)
-        if not isinstance(self.show_legend, bool):
-            msg = 'show_legend must be a boolean'
-            raise TypeError('show_legend must be a boolean')
+    def subchart(self, show_subchart):
+        if not isinstance(show_subchart, bool):
+            raise TypeError("arg for subchart must be boolean, received {}".format(type(show_subchart)))
+        self.show_subchart = show_subchart
+
+    def height(self, height_value):
+        if not isinstance(height_value, numbers.Number):
+            raise TypeError('height must be a number, received {} of type {}'.format(type(height_value)))
+        self.height_value = height_value
+
+    def width(self, width_value):
+        if not isinstance(width_value, numbers.Number):
+            raise TypeError('width must be a number, received {} of type {}'.format(type(width_value)))
+        self.width_value = width_value
+
+    def gridlines(self, x=None, y=None):
+        msg = "arg for {} gridlines must be boolean, received {}"
+        if x is not None and not isinstance(x, bool):
+            raise(TypeError(msg.format('x', type(x))))
+        if y is not None and not isinstance(y, bool):
+            raise(TypeError(msg.format('y', type(y))))
+        if x is not None:
+            self.x_grid_lines = x
+        if y is not None:
+            self.y_grid_lines = y
+
+    def legend_position(self, position):
+        if not position in ('bottom', 'right', 'inset'):
+            raise ValueError('Currently only bottom, right and inset supported for legend_position')
+        self.show_legend_position = position
+
 
     def get_legend_for_json(self):
         return {
             'show': self.show_legend,
-            'position': self.legend_position
+            'position': self.show_legend_position
         }
 
     def get_grid_for_json(self):
@@ -123,22 +127,25 @@ class C3Chart(object):
 
     def get_subchart_for_json(self):
         subchart = {
-            'enabled': self.subchart
+            'enabled': self.show_subchart
         }
         return subchart
 
     def get_size_for_json(self):
         size = {}
-        if self.height:
-            size['height'] = self.height
-        if self.width:
-            size['width'] = self.width
+        if self.height_value:
+            size['height'] = self.height_value
+        if self.width_value:
+            size['width'] = self.width_value
         return size
 
     def get_points_for_json(self):
         return {
             'show': self.show_points
         }
+
+    def get_donut_for_json(self):
+        return {}
 
     def reset_data(self):
         self.x_data = []
@@ -148,8 +155,7 @@ class C3Chart(object):
     def plot_graph(self, chart_json):
         with open(temp_path, 'w') as f:
             f.write(template.render(
-                title=self.name, 
-                body='Hello, World',
+                title=self.name,
                 chart_json=chart_json,
                 ))
         webbrowser.open(url)
@@ -169,6 +175,7 @@ class C3Chart(object):
             'subchart': self.get_subchart_for_json(),
             'size': self.get_size_for_json(),
             'points': self.get_points_for_json(),
+            'donut': self.get_donut_for_json()
         }
         chart_json = json.dumps(chart_json)
         return chart_json
@@ -178,4 +185,3 @@ class C3Chart(object):
 
     def get_axis_for_json(self):
         raise NotImplementedError
-

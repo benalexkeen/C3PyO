@@ -7,7 +7,6 @@
     <script src="../static/d3.min.js"></script>
 </head>
 <body>
-    {{ body }}
     <div id='chart_div'></div>
     <script>
         c3.generate({{ chart_json|safe }});
