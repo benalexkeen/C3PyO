@@ -49,21 +49,17 @@ class LineChart(C3Chart):
             self.chart_type = 'line'
 
     def get_all_data_for_plot(self):
-        x_is_dates = False
-        x_is_datetimes = False
-        for x_key in self.x_s:
-            for item in self.data:
+        for x_key in self.x_s.values():
+            for idx, item in enumerate(self.data):
                 if item[0] == x_key:
                     x_is_dates = [isinstance(x, datetime.date) for x in item[1:]]
                     x_is_datetimes = [isinstance(x, datetime.datetime) for x in item[1:]]
-
-        if all(x_is_dates) and not all(x_is_datetimes):
-            self.x_is_dates = True
-            self.x_data = [x.strftime(DATE_FORMAT) for x in self.x_data]
-        if all(x_is_datetimes):
-            self.x_is_datetimes = True
-            self.x_data = [x.strftime(DATETIME_FORMAT) for x in self.x_data]
-
+                    if all(x_is_dates) and not all(x_is_datetimes):
+                        self.x_is_dates = True
+                        self.data[idx] = [x.strftime(DATETIME_FORMAT) if isinstance(x, datetime.date) else x for x in item]
+                    elif all(x_is_datetimes):
+                        self.x_is_datetimes = True
+                        self.data[idx] = [x.strftime(DATETIME_FORMAT) if isinstance(x, datetime.date) else x for x in item]
         all_data = self.data
         return all_data
 
