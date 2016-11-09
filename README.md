@@ -12,11 +12,15 @@ Then have a go at some of the commands below (Note that the images shown are sta
 ### Line Chart
 
 ```python
+x = [1, 2, 3, 4, 5]
+y1 = [1,2,4,24,48]
+y2 = [2, 4, 8, 48, 96]
+
 import c3pyo as c3
 chart = c3.LineChart()
-chart.set_x_data({"x1": [1, 2, 3, 4, 5]})
-chart.set_y_data({"y1": [1,2,4,24,48], "y2": [2, 4, 8, 48, 96]})
-chart.plot()
+chart.plot(x, y1, label="y1")
+chart.plot(x, y2, label="y2")
+chart.show()
 ```
 ![LineChart1]
 (http://benalexkeen.com/wp-content/uploads/2016/10/linechart1.png)
@@ -25,12 +29,17 @@ chart.plot()
 
 ```python
 import datetime
+dts = [datetime.datetime(2015, 3, 5, x) for x in [10, 11, 12, 13, 14]]
+y1 = [10, 20, 30, 20, 10]
+y2 = [20, 10, 30, 40, 0]
+
 import c3pyo as c3
-dts = [datetime.datetime(2015, 3, 5, x) for x in [10,11,12,13,14]]
-chart = c3.SplineChart(legend_position='inset', area=True)
-chart.set_x_data({"x1": dts})
-chart.set_y_data({"y1": [10,20,30,20,10], "y2": [20, 10, 30, 40, 0]})
-chart.plot()
+chart = c3.SplineChart()
+chart.legend_position('inset')
+chart.area(True)
+chart.plot(dts, y1, label="y1")
+chart.plot(dts, y2, label="y2")
+chart.show()
 ```
 
 ![SplineChart1]
@@ -39,27 +48,32 @@ chart.plot()
 ### Bar Chart
 
 ```python
+men_height = [175, 176, 172, 172, 177]
+women_height = [156, 162, 158, 160, 164]
+
 import c3pyo as c3
 chart = c3.BarChart()
-chart.set_data({"a": 5, "b": 10, "c": 15, "d": 20})
-chart.plot()
+chart.plot(men_height, label='Men_Heights')
+chart.plot(women_height, label='Women_Heights')
+chart.set_xticklabels(('UK', 'USA', 'Japan', 'China', 'Russia'))
+chart.ylabel('Height (cm)')
+chart.show()
 ```
 
 ![BarChart1]
-(http://benalexkeen.com/wp-content/uploads/2016/10/barchart1.png)
+(http://benalexkeen.com/wp-content/uploads/2016/11/bar_chart.png)
 
 ### Scatter Chart
 
 ```python
+dataset_1 = {'x': [1, 2, 3, 4, 5], 'y': [6, 7, 8, 9, 10]}
+dataset_2 = {'x': [1.5, 2.5, 3.5, 4.5, 5.5], 'y': [5, 6, 7, 8, 9]}
+
 import c3pyo as c3
 chart = c3.ScatterChart()
-chart.set_data(
-        {
-        "Dataset_1": [[1,2,3,4,5], [6,7,8,9,10]],
-        "Dataset_2": [[1.5, 2.5, 3.5, 4.5, 5.5], [5,6,7,8,9]]
-        }
-    )
-chart.plot()
+chart.plot(dataset_1['x'], dataset_1['y'], label='Dataset1')
+chart.plot(dataset_2['x'], dataset_2['y'], label='Dataset2')
+chart.show()
 ```
 
 ![ScatterChart1]

@@ -22,56 +22,46 @@ import c3pyo as c3
 # plt.show()
 
 
+### Spline Chart
+
+# import datetime
+# dts = [datetime.datetime(2015, 3, 5, x) for x in [10, 11, 12, 13, 14]]
+# y1 = [10, 20, 30, 20, 10]
+# y2 = [20, 10, 30, 40, 0]
+#
+#
+# chart = c3.SplineChart()
+# chart.legend_position('inset')
+# chart.area(True)
+# chart.plot(dts, y1, label="y1")
+# chart.plot(dts, y2, label="y2")
+# chart.show()
+
+
 
 ### Bar Chart
 
-men_means = [20, 35, 30, 35, 27]
-women_means = [25, 32, 34, 20, 25]
-plt = c3.BarChart()
-plt.plot(men_means, label='Men_Means')
-plt.plot(women_means, label='Women_Means')
-plt.set_xticklabels(('G1', 'G2', 'G3', 'G4', 'G5'))
-plt.stacked(True)
-plt.ylabel('Scores')
-plt.show()
-
-
-
+# men_height = [175, 176, 172, 172, 177]
+# women_height = [156, 162, 158, 160, 164]
+#
 # chart = c3.BarChart()
-# chart.set_data({"a": 5, "b": 10, "c": 15, "d": 20})
-# chart.plot()
+# chart.plot(men_height, label='Men_Heights')
+# chart.plot(women_height, label='Women_Heights')
+# chart.set_xticklabels(('UK', 'USA', 'Japan', 'China', 'Russia'))
+# chart.ylabel('Height (cm)')
+# chart.show()
 
-# chart = c3.BarChart()
-# data = pd.Series([1, 2, 3, 4, 5, 6, 7])
-# chart.set_data(data)
-# chart.plot()
-
-# chart = c3.BarChart()
-# data = [1, 2, 3, 4, 5, 6, 7]
-# chart.set_data(data)
-# chart.plot()
-
-# chart = c3.BarChart()
-# data = pd.DataFrame([{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}])
-# chart.set_data(data)
-# chart.plot()
 
 ### Scatter Chart
 
-# chart = c3.ScatterChart()
-# chart.set_data(
-#         {
-#         "Dataset_1": [[1,2,3,4,5], [6,7,8,9,10]],
-#         "Dataset_2": [[1.5, 2.5, 3.5, 4.5, 5.5], [5,6,7,8,9]]
-#         }
-#     )
-# chart.plot()
+dataset_1 = {'x': [1, 2, 3, 4, 5], 'y': [6, 7, 8, 9, 10]}
+dataset_2 = {'x': [1.5, 2.5, 3.5, 4.5, 5.5], 'y': [5, 6, 7, 8, 9]}
 
-# chart = ScatterChart()
-# chart.set_data(
-        # [[1,2,3,4,5], [6,7,8,9,10], [1.5, 2.5, 3.5, 4.5, 5.5], [5,6,7,8,9]]
-    # )
-# chart.plot()
+
+chart = c3.ScatterChart()
+chart.plot(dataset_1['x'], dataset_1['y'], label='Dataset1')
+chart.plot(dataset_2['x'], dataset_2['y'], label='Dataset2')
+chart.show()
 
 ### Pie Chart
 
