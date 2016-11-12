@@ -12,7 +12,7 @@ install:
     - pip install coveralls
 
 script:
-    - nosetests  --with-coverage --cover-package=c3pyo
+    - nosetests -v  --with-coverage --cover-package=c3pyo
 notifications:
     email: true
 

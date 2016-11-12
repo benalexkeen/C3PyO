@@ -1,7 +1,8 @@
 import unittest
 import json
 
-from c3pyo import LineChart, SplineChart, StepChart
+from c3pyo import LineChart
+
 
 class TestLineChart(unittest.TestCase):
     def test_line_chart_list_input(self):
@@ -70,5 +71,3 @@ class TestLineChart(unittest.TestCase):
         self.assertEqual(output['data']['xs']['y'], 'x_y')
         self.assertEqual(output['data']['columns'][0], ['x_y', 14, 15, 16])
         self.assertIn(['y', 17, 18, 19], output['data']['columns'])
-
-

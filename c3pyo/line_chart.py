@@ -43,8 +43,10 @@ class LineChart(C3Chart):
             self.show_points = False
         else:
             raise ValueError("Currently only 'o' and None supported for marker")
-        if type is not None and type in valid_types:
+        if (type is not None) and (type in valid_types):
             self.types[y_series_label] = type
+        elif type is None:
+            pass
         else:
             raise ValueError('type {} not recognised, use type from {}'.format(type, valid_types))
 

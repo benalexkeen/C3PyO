@@ -40,7 +40,7 @@ class C3Chart(object):
         self.x_grid_lines = kwargs.get('gridlines', False)
         self.y_grid_lines = kwargs.get('gridlines', False)
         self.show_area = kwargs.get('area', False)
-        self.zoom = kwargs.get('zoom', False)
+        self.zoom_on_off = kwargs.get('zoom', False)
         self.show_subchart = kwargs.get('subchart', False)
         self.height_value = kwargs.get('height', 0)
         self.width_value = kwargs.get('width', 0)
@@ -71,7 +71,7 @@ class C3Chart(object):
     def zoom(self, zoom_on_off):
         if not isinstance(zoom_on_off, bool):
             raise TypeError("arg for zoom must be boolean, received {}".format(type(zoom_on_off)))
-        self.zoom = zoom_on_off
+        self.zoom_on_off = zoom_on_off
 
     def subchart(self, show_subchart):
         if not isinstance(show_subchart, bool):
@@ -79,36 +79,45 @@ class C3Chart(object):
         self.show_subchart = show_subchart
 
     def height(self, height_value):
+        msg = 'height must be a number, received {} of type {}'.format(height_value, type(height_value))
+        if isinstance(height_value, bool):
+            raise TypeError(msg)
         if not isinstance(height_value, numbers.Number):
-            raise TypeError('height must be a number, received {} of type {}'.format(height_value, type(height_value)))
+            raise TypeError(msg)
         self.height_value = height_value
 
     def width(self, width_value):
+        msg = 'width must be a number, received {} of type {}'.format(width_value, type(width_value))
+        if isinstance(width_value, bool):
+            raise TypeError(msg)
         if not isinstance(width_value, numbers.Number):
-            raise TypeError('width must be a number, received {} of type {}'.format(width_value, type(width_value)))
+            raise TypeError(msg)
         self.width_value = width_value
 
     def y_range(self, y_min=None, y_max=None):
-        if not isinstance(y_min, numbers.Number):
+        if (not isinstance(y_min, numbers.Number) or isinstance(y_min, bool)) and y_min is not None:
             raise TypeError('y_min must be a number, received {} of type {}'.format(y_min, type(y_min)))
-        if not isinstance(y_max, numbers.Number):
+        if (not isinstance(y_max, numbers.Number) or isinstance(y_max, bool)) and y_max is not None:
             raise TypeError('y_max must be a number, received {} of type {}'.format(y_max, type(y_max)))
-        self.y_min = y_min
-        self.y_max = y_max
+        if y_min is not None:
+            self.y_min = y_min
+        if y_max is not None:
+            self.y_max = y_max
 
     def gridlines(self, x=None, y=None):
         msg = "arg for {} gridlines must be boolean, received {}"
-        if x is not None and not isinstance(x, bool):
-            raise(TypeError(msg.format('x', type(x))))
-        if y is not None and not isinstance(y, bool):
-            raise(TypeError(msg.format('y', type(y))))
         if x is not None:
-            self.x_grid_lines = x
+            if not isinstance(x, bool):
+                raise(TypeError(msg.format('x', type(x))))
+            else:
+                self.x_grid_lines = x
         if y is not None:
+            if not isinstance(y, bool):
+                raise(TypeError(msg.format('y', type(y))))
             self.y_grid_lines = y
 
     def legend_position(self, position):
-        if not position in ('bottom', 'right', 'inset'):
+        if position not in ('bottom', 'right', 'inset'):
             raise ValueError('Currently only bottom, right and inset supported for legend_position')
         self.show_legend_position = position
 
@@ -121,11 +130,14 @@ class C3Chart(object):
         three_hex = re.compile("^(#)?[A-Fa-f0-9]{3}$")
         six_hex = re.compile("^(#)?[A-Fa-f0-9]{6}$")
         if color.lower() in single_letter_color_mapping:
-            self.colors[y_label] = single_letter_color_mapping[color]
+            self.colors[y_label] = single_letter_color_mapping[color.lower()]
         elif color.lower() in color_mapping:
-            self.colors[y_label] = color_mapping[color]
+            self.colors[y_label] = color_mapping[color.lower()]
         elif three_hex.match(color) or six_hex.match(color):
-            self.colors[y_label] = color
+            if color.startswith('#'):
+                self.colors[y_label] = color
+            else:
+                self.colors[y_label] = '#{}'.format(color)
         else:
             msg = "color {} not recognised for {}, please use a recognised color or hex code"
             raise ValueError(msg.format(color, y_label))
@@ -151,7 +163,7 @@ class C3Chart(object):
 
     def get_zoom_for_json(self):
         zoom = {
-            'enabled': self.zoom
+            'enabled': self.zoom_on_off
         }
         return zoom
 
