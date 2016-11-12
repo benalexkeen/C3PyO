@@ -1,4 +1,5 @@
 from c3pyo import C3Chart
+from c3pyo.utils import valid_types
 
 
 class BarChart(C3Chart):
@@ -19,7 +20,7 @@ class BarChart(C3Chart):
             raise TypeError("arg for stacked must be boolean, received {}".format(type(stacked_bar)))
         self.stacked_bar = stacked_bar
 
-    def plot(self, y, color=None, label=None):
+    def plot(self, y, color=None, label=None, type=None):
         if not label:
             y_series_label = "y{}".format(self.y_number)
             self.y_number += 1
@@ -29,6 +30,10 @@ class BarChart(C3Chart):
         y_data.extend(list(y))
         if color:
             self.add_color(color, y_series_label)
+        if type is not None and type in valid_types:
+            self.types[y_series_label] = type
+        else:
+            raise ValueError('type {} not recognised, use type from {}'.format(type, valid_types))
         self.data.append(y_data)
 
     def get_data_for_json(self):

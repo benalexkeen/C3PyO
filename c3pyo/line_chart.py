@@ -1,7 +1,7 @@
 import datetime
 
 from c3pyo import C3Chart
-from c3pyo.utils import DATE_FORMAT, DATETIME_FORMAT
+from c3pyo.utils import DATE_FORMAT, DATETIME_FORMAT, valid_types
 
 
 class LineChart(C3Chart):
@@ -19,7 +19,7 @@ class LineChart(C3Chart):
         msg = 'area must be a boolean' 
         assert isinstance(self.show_area, bool), msg
 
-    def plot(self, x, y, color=None, marker='o', label=None):
+    def plot(self, x, y, color=None, marker='o', label=None, type=None):
         if not len(x) == len(y):
             raise ValueError("The length of the two passed arrays for x and y are different")
         if not label:
@@ -43,6 +43,10 @@ class LineChart(C3Chart):
             self.show_points = False
         else:
             raise ValueError("Currently only 'o' and None supported for marker")
+        if type is not None and type in valid_types:
+            self.types[y_series_label] = type
+        else:
+            raise ValueError('type {} not recognised, use type from {}'.format(type, valid_types))
 
     def get_type(self):
         if self.show_area:
@@ -118,7 +122,6 @@ class LineChart(C3Chart):
 
 
     def check_chart_type(self):
-        valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step', 'scatter')
         assert self.chart_type in valid_types, self.chart_type
 
     def show(self):

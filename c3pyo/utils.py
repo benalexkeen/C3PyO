@@ -8,6 +8,8 @@ def is_iterable(x):
     else:
         return False
 
+valid_types = ('line', 'spline', 'step', 'area', 'area-spline', 'area-step', 'scatter', 'bar')
+
 color_mapping = {
     'aliceblue': '#F0F8FF',
     'antiquewhite': '#FAEBD7',

@@ -46,8 +46,10 @@ class C3Chart(object):
         self.width_value = kwargs.get('width', 0)
         self.y_max = kwargs.get('y_max', None)
         self.y_min = kwargs.get('y_min', None)
+        self.show_tooltip = kwargs.get('tooltip', True)
         self.chart_div = '#{}'.format(kwargs.get('chart_div', 'chart_div'))
         self.colors = {}
+        self.types = {}
         self.save_output = False
 
     def xlabel(self, label):
@@ -110,6 +112,11 @@ class C3Chart(object):
             raise ValueError('Currently only bottom, right and inset supported for legend_position')
         self.show_legend_position = position
 
+    def tooltip(self, show_tooltip):
+        if not isinstance(show_tooltip, bool):
+            raise TypeError("arg for show_tooltip must be boolean, received {}".format(type(show_tooltip)))
+        self.show_tooltip = show_tooltip
+
     def add_color(self, color, y_label):
         three_hex = re.compile("^(#)?[A-Fa-f0-9]{3}$")
         six_hex = re.compile("^(#)?[A-Fa-f0-9]{6}$")
@@ -167,6 +174,11 @@ class C3Chart(object):
             'show': self.show_points
         }
 
+    def get_tooltip_for_json(self):
+        return{
+            'show': self.show_tooltip
+        }
+
     def get_donut_for_json(self):
         return {}
 
@@ -198,7 +210,8 @@ class C3Chart(object):
             'subchart': self.get_subchart_for_json(),
             'size': self.get_size_for_json(),
             'points': self.get_points_for_json(),
-            'donut': self.get_donut_for_json()
+            'donut': self.get_donut_for_json(),
+            'tooltip': self.get_tooltip_for_json()
         }
         chart_json = json.dumps(chart_json)
         return chart_json
