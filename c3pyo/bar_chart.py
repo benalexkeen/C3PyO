@@ -27,12 +27,15 @@ class BarChart(C3Chart):
             y_series_label = label
         y_data = [y_series_label]
         y_data.extend(list(y))
+        if color:
+            self.add_color(color, y_series_label)
         self.data.append(y_data)
 
     def get_data_for_json(self):
         data = {
             'columns': self.data,
-            'type': self.chart_type
+            'type': self.chart_type,
+            'colors': self.colors,
         }
         if self.stacked_bar:
             data['groups'] = [[series[0] for series in self.data]]

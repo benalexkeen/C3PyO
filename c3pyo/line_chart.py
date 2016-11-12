@@ -32,6 +32,8 @@ class LineChart(C3Chart):
         x_data.extend(list(x))
         y_data = [y_series_label]
         y_data.extend(list(y))
+        if color:
+            self.add_color(color, y_series_label)
         self.data.append(x_data)
         self.data.append(y_data)
         self.x_s[y_series_label] = x_series_label
@@ -69,6 +71,7 @@ class LineChart(C3Chart):
         data = {
             'columns': self.get_all_data_for_plot(),
             'type': self.chart_type,
+            'colors': self.colors,
             'xs': self.x_s
         }
         if self.x_is_datetimes:
@@ -107,6 +110,10 @@ class LineChart(C3Chart):
             axis['x']['label'] = self.label_for_x
         if self.label_for_y:
             axis['y']['label'] = self.label_for_y
+        if self.y_max:
+            axis['y']['max'] = self.y_max
+        if self.y_min:
+            axis['y']['min'] = self.y_min
         return axis
 
 

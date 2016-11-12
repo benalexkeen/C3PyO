@@ -20,12 +20,15 @@ class PieChart(C3Chart):
         else:
             y_data = [y_series_label]
             y_data.extend(y)
+        if color:
+            self.add_color(color, y_series_label)
         self.data.append(y_data)
 
     def get_data_for_json(self):
         return {
             'columns': self.data,
-            'type': self.chart_type
+            'type': self.chart_type,
+            'colors': self.colors,
             }
 
     def get_axis_for_json(self):
