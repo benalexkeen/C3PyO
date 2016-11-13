@@ -195,6 +195,9 @@ class C3Chart(object):
     def get_donut_for_json(self):
         return {}
 
+    def get_bar_for_json(self):
+        return {}
+
     def plot_graph(self, chart_json):
         with open(temp_path, 'w') as f:
             f.write(template.render(
@@ -219,7 +222,8 @@ class C3Chart(object):
             'size': self.get_size_for_json(),
             'points': self.get_points_for_json(),
             'donut': self.get_donut_for_json(),
-            'tooltip': self.get_tooltip_for_json()
+            'tooltip': self.get_tooltip_for_json(),
+            'bar': self.get_bar_for_json(),
         }
         chart_json = json.dumps(chart_json)
         return chart_json
