@@ -12,12 +12,12 @@
 
 <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="{{ site.baseurl }}">{{ site.title }}</a>
+        <a class="pure-menu-heading" href="{{ site.url }}">{{ site.title }}</a>
 
         <ul class="pure-menu-list">
-        	{% capture location %}{{ page.url }}{% endcapture %}
+        	{% capture location %}{{ page.baseurl }}{% endcapture %}
             {% for page in site.pages reversed %}
-				<li class="pure-menu-item {% if location == post.url %}pure-menu-selected{% endif %}"><a href="{{ page.url }}" class="pure-menu-link">{{ page.title }}</a></li>
+				<li class="pure-menu-item {% if location == post.baseurl %}pure-menu-selected{% endif %}"><a href="{{ site.url }}{{ page.url }}" class="pure-menu-link">{{ page.title }}</a></li>
 			{% endfor %}
 
 			<li class="pure-menu-item"><a class="github-button pure-menu-link" href="https://github.com/benalexkeen/C3PyO" data-icon="octicon-star" data-style="mega"  aria-label="Star github.com/benalexkeen/C3PyO">Star</a></li>
