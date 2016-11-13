@@ -28,11 +28,11 @@ def test_spline_chart_datetimes():
 
 
 def test_spline_chart_dates():
-    dts = [datetime.date(2017, 1, x) for x in [1, 2, 3, 4, 5]]
+    dates = [datetime.date(2017, 1, x) for x in [1, 2, 3, 4, 5]]
     y1 = [32.4, 15, 20, 12, 32]
 
     chart = c3.SplineChart()
-    chart.plot(dts, y1, label='date_series')
+    chart.plot(dates, y1, label='date_series')
     chart.gridlines(y=True)
     res = chart.json()
     res = json.loads(res)
