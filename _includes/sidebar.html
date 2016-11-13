@@ -1,27 +1,30 @@
- <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                  <a class="page-nav" href="{{site.baseurl}}/"><h2>{{site.title}}</h2></a>
-                </li>
-                <li>
-                    <a class="page-nav" href="{{site.baseurl}}/about/">About</a>
-                </li>
-                <li>
-                    <a class="page-nav" href="{{site.baseurl}}/archive/">Archive</a>
-                </li>
-                <li>
-                    <a class="page-nav" href="{{site.baseurl}}/contact/">Contact</a>
-                </li> 
-                
-                   <li>
-                    <a class="page-nav" href="{{site.baseurl}}/search/">Search</a>
-                </li>
-                <li>
-                    <a class="page-nav" href="https://github.com/sharu725/webjeda-sidebar.git">Project on Github</a>
-                </li>
-                <li>
-                    <a class="page-nav" href="https://github.com/sharu725/webjeda-sidebar/archive/master.zip">Download</a>
-                </li>
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item menu-item-divided"><a href="{{ site.url }}" class="pure-menu-link">{{ site.title }}</a></li>
             </ul>
+            {% for category in site.data.categories %}
+                {% if page.category %}
+                    <a class="pure-menu-heading" href="{{ site.url }}/{{ page.category }}">{% if category.slug == page.category %}{{ category.name }}{% endif %}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% capture location %}{{ page.url }}{% endcapture %}
+
+            <ul class="pure-menu-list">
+                {% for post in site.categories[page.category] reversed  %}
+
+                    <li class="pure-menu-item {% if location == post.url %}pure-menu-selected{% endif %}"><a href="{{ post.url }}" class="pure-menu-link">{{ post.title }}</a></li>
+                    
+                {% endfor %}
+
+            </ul>
+            
         </div>
+    </div>

@@ -1,50 +1,76 @@
-
-title: WebJeda
-description: "WebJeda is a company oriented towards building modern websites and apps. It also provides smart hosting solutions. Contact us for modern, fast and responsive websites"
-url: "http://webjeda.com"
-author: sharath dt
-
-
-author-image: /img/user.png
-
-baseurl: "/webjeda-sidebar"  # the subpath of your site, e.g. /blog
-
-# Build settings
-markdown: kramdown
-
-
-#color scheme
-sidebar-color: '#000'       #those apostrophes are important
-accent-color: '#F62459'     #those apostrophes are important
-
-
-#social
-facebook: https://www.facebook.com/
-twitter: https://twitter.com/
-twitter-handle: '@sharathdt'     #for twitter button on author section #those apostrophes are important
-github: https://github.com/
-youtube: https://www.youtube.com/channel/
-email: mailto:hello@webjeda.com
-feedburner-subscribe: https://feedburner.google.com/fb/a/mailverify?uri=webjedablog&amp;loc=en_US
-
-#Other
-analytics: UA-71358787-1
-disqus-shortname: webjeda-sample    #Disqus comments
-google-custom-search-cx: '017575011755499056211:vwrwldvgq6s'        #Create Custom Search Engine(CSE) with google and find this ID in the code they provide.
-
-
-# Get this from https://getsimpleform.com to make your contact form work as expected.
-simpleform-api-token:
-
-
+# Where Things Are
+source: .
 destination: ./_site
-permalink: /:title/
-paginate: 6
-paginate_path: /page:num/
+plugins: ./_plugins
+layouts: ./_layouts
+data_source: ./_data
+collections: null
 
-sass:
-    style: compressed
-    
-gems: [jekyll-paginate]
+## Setup
+title: 'Algomash'
+tagline: 'Create Documentation Website Using Jekyll'
+description: 'Algomash is a Jekyll boilerplate with necessary operations for creating Documentation website for small projects.'
+url: http://algomash.com
+assets: http://algomash.com/assets/
 
+# Handling Reading
+safe:         false
+include:      [".htaccess"]
+exclude:      []
+keep_files:   [".git", ".svn"]
+encoding:     "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
+# Filtering Content
+show_drafts: null
+limit_posts: 0
+future:      true
+unpublished: false
+
+# Plugins
+whitelist: []
+gems:      []
+
+# Conversion
+markdown:    kramdown
+highlighter: pygments
+lsi:         false
+excerpt_separator: "\n\n"
+
+# Serving
+detach:  false
+port:    4000
+host:    127.0.0.1
+baseurl: "" # does not include hostname
+
+# Outputting
+permalink: /:categories/:title/
+paginate_path: /page:num
+paginate: 15
+timezone: Asia/Calcutta
+include: ['_pages']
+relative_permalinks: false
+quiet:    false
+
+# Markdown Processors
+rdiscount:
+  extensions: []
+
+redcarpet:
+  extensions: []
+
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+  coderay:
+    coderay_wrap:              div
+    coderay_line_numbers:      inline
+    coderay_line_number_start: 1
+    coderay_tab_width:         4
+    coderay_bold_every:        10
+    coderay_css:               style
