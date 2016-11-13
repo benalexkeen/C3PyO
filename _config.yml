@@ -1,0 +1,62 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Webjeda Thunder
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Thunder is a lightning fast responsive theme based on default Jekyll theme. It is minimal and free from JavaScript. It has a css file of size 5kb. 
+url: "http://webjeda.com" # the base hostname & protocol for your site
+
+baseurl: '/thunder'
+permalink: /:title/
+
+analytics: UA-83979019-1
+disqus-shortname: webjeda-demo
+
+# Color schemes
+color-1: '#3B97D3'
+color-2: '#26B99A'
+
+# Author pictre 100x100 --> keep it inside img folder.
+author-image: 'author.jpg'
+author-name: 'John Doe' 
+author-about: 'John Doe should be described in a very few words!' 
+
+# Build settings
+markdown: kramdown
+
+sass:
+    style: compressed
+
+
+
+
+#compress.html
+compress_html:
+  clippings: [html,div, p, ul, td, h1, h2, h3, h4,link, meta, footer, nav, img, header, hr, br, head, style, li, ul, ol, time, main, script, title]
+  comments: ["<!-- ", " -->"]
+  endings: [all]
+  ignore:
+    envs: [local]
+  blanklines: false
+  profile: false
+  startings: []
+  
+  
+prose:
+  rooturl: ''
+  siteurl: 'http://prose.github.io/starter/'
+  relativeLinks: 'http://prose.github.io/starter/links.jsonp'
+  media: 'images'
+  ignore:
+    - index.md
+    - _config.yml
+    - /_layouts
+    - /_includes
+    
+gems: [jekyll-seo-tag]

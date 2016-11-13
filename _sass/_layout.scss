@@ -1,0 +1,266 @@
+* {
+    transition-duration: 0.2s;
+}
+
+body{
+        max-width: 70%;
+        margin: 0 auto;
+    
+    @include media-query($on-palm){
+        max-width: 90%;
+        }
+}
+
+.site-header {
+    
+    margin-top: 2em;
+    // Positioning context for the mobile navigation icon
+    position: relative;
+     @include media-query($on-palm){
+        margin-top: 0.625em;
+        }
+    
+    
+}
+
+
+.site-nav {
+    line-height: 56px;
+    display: inline-block;
+
+}
+
+/**
+ * Page content
+ */
+.page-content {
+    margin: 0 auto;
+    max-width: 65%;
+    padding: $spacing-unit 0;
+    
+      @include media-query($on-palm){
+        max-width: 100%;
+        }
+}
+
+
+.post-list {
+    margin-left: 0;
+    list-style: none;
+
+    > li {
+        margin-bottom: $spacing-unit;
+    }
+}
+
+.post-meta {
+    font-size: $small-font-size;
+    color: $grey-color;
+
+}
+
+.post-list .post-meta {
+        float: right;
+}
+
+.post-link {
+    display: block;
+    font-size: 24px;
+}
+
+
+
+/**
+ * Posts
+ */
+.post-header {
+    margin-bottom: $spacing-unit;
+}
+
+.post-title {
+    font-size: 42px;
+    letter-spacing: -1px;
+    line-height: 1;
+
+    @include media-query($on-laptop) {
+        font-size: 36px;
+    }
+}
+
+.post-content {
+    margin-bottom: $spacing-unit;
+    h1 {
+        font-size: 42px;
+            @include media-query($on-laptop) {
+                font-size: 36px;
+    }
+    }
+
+    h2 {
+        font-size: 32px;
+
+        @include media-query($on-laptop) {
+            font-size: 28px;
+        }
+    }
+
+    h3 {
+        font-size: 26px;
+
+        @include media-query($on-laptop) {
+            font-size: 22px;
+        }
+    }
+
+    h4 {
+        font-size: 20px;
+
+        @include media-query($on-laptop) {
+            font-size: 18px;
+        }
+    }
+}
+
+
+
+#logo {
+   fill: $color-1;
+    
+    &:hover{
+        fill: $color-2;
+    } 
+}
+
+.page-link {
+        margin-left: 1em;
+}
+
+.thunder{
+    max-width: 100%
+}
+
+//table
+table {
+  margin: 15px 0;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid $grey-color;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid $grey-color;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid $grey-color;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin: 0; }
+
+
+// Adding 'Contents' headline to the TOC
+#markdown-toc::before {
+    content: "Contents";
+    font-weight: bold;
+}
+
+
+// Using numbers instead of bullets for listing
+#markdown-toc ul {
+    list-style: decimal;
+}
+
+#markdown-toc {
+    border: 1px solid $color-1;
+    padding: 1.5em;
+    list-style: decimal;
+    display: inline-block;
+}
+
+
+
+.color-bars{
+    margin: 0 -1em 0 -1em;
+}
+
+.cor {
+    width: 25%;
+    height: 4px;
+    display: inline-block;
+    vertical-align: bottom;
+
+}
+.colr-1{
+background-color: #3498db;
+}
+.colr-2{
+background-color: #f1c40f;
+}
+.colr-3{
+background-color: #2ecc71;
+}
+.colr-4{
+background-color: #e74c3c;
+}
+.colr-5{
+background-color: #9b59b6;
+}
+.colr-6{
+background-color: #1abc9c;
+}
+.colr-7{
+background-color: #e67e22;
+}
+.colr-8{
+background-color: #34495e;
+}
+
+.author {
+    border:none;
+    box-shadow: 0 0 5px #a8a9ab;
+    padding: 1em 1em 0 1em;
+}    
+
+.author-body {
+}
+
+.author-image {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline-block;
+
+}
+
+.author-about {
+    margin-left: 1em;
+    display: inline-block;
+    @include media-query($on-palm) {
+         margin-left: 0em;
+        display: block;
+    }
+
+}
+.author-about p, .author-about h4 {
+    margin: 0;
+    padding:0;
+}
+
+.cor-head {
+    width: 12.5%;
+    height: 5px;
+    display: inline-block;
+}
