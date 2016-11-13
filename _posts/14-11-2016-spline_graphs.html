@@ -1,0 +1,45 @@
+---
+layout: post
+title: Spline Graphs
+category: docs
+excerpt: Spline Graphs using C3PyO
+---
+<pre class="prettyprint lang-py">
+    import numpy as np
+    x = np.arange(0, np.pi * 2, 0.5)   # Array from 0 to 2&#960;
+    y = np.sin(x)                      # sin(x)
+    
+    import c3pyo as c3
+    chart = c3.SplineChart()
+    chart.plot(x, y, label='f(x) = sin(x)')
+    chart.xlabel('x')
+    chart.ylabel('f(x)')
+    chart.show()
+</pre>
+
+<div id='spline_chart_div1'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"f(x) = sin(x)": "x_f(x) = sin(x)"}, "colors": {}, "type": "spline", "columns": [["x_f(x) = sin(x)", 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0], ["f(x) = sin(x)", 0.0, 0.47942553860420301, 0.8414709848078965, 0.99749498660405445, 0.90929742682568171, 0.59847214410395644, 0.14112000805986721, -0.35078322768961984, -0.7568024953079282, -0.97753011766509701, -0.95892427466313845, -0.70554032557039192, -0.27941549819892586]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#spline_chart_div1", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "f(x)"}, "x": {"fit": false, "label": "x"}}})
+</script>
+
+<pre class="prettyprint lang-py">
+    import numpy as np
+    x = np.arange(0, 3, 0.5)          # Array from 0 to 3
+    y1 = x / (1 + np.abs(x))
+    y2 = np.tanh(x)
+    y3 = x / ((1 + x **2) ** 0.5)
+    
+    import c3pyo as c3
+    chart = c3.SplineChart()
+    chart.plot(x, y1, color='indigo', label='f(x) = x / (1 + |x|)')
+    chart.plot(x, y2, color='red', label='f(x) = tanh(x)')
+    chart.plot(x, y3, color='orange', label='f(x) = x / sqrt(1 + x^2)')
+    chart.xlabel('x')
+    chart.ylabel('f(x)')
+    chart.show()
+</pre>
+
+<div id='spline_chart_div2'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"f(x) = x / sqrt(1 + x^2)": "x_f(x) = x / sqrt(1 + x^2)", "f(x) = tanh(x)": "x_f(x) = tanh(x)", "f(x) = x / (1 + |x|)": "x_f(x) = x / (1 + |x|)"}, "colors": {"f(x) = x / sqrt(1 + x^2)": "#FFA500", "f(x) = tanh(x)": "#FF0000", "f(x) = x / (1 + |x|)": "#4B0082"}, "type": "spline", "columns": [["x_f(x) = x / (1 + |x|)", 0.0, 0.5, 1.0, 1.5, 2.0, 2.5], ["f(x) = x / (1 + |x|)", 0.0, 0.33333333333333331, 0.5, 0.59999999999999998, 0.66666666666666663, 0.7142857142857143], ["x_f(x) = tanh(x)", 0.0, 0.5, 1.0, 1.5, 2.0, 2.5], ["f(x) = tanh(x)", 0.0, 0.46211715726000974, 0.76159415595576485, 0.9051482536448664, 0.9640275800758169, 0.98661429815143031], ["x_f(x) = x / sqrt(1 + x^2)", 0.0, 0.5, 1.0, 1.5, 2.0, 2.5], ["f(x) = x / sqrt(1 + x^2)", 0.0, 0.44721359549995793, 0.70710678118654746, 0.83205029433784372, 0.89442719099991586, 0.92847669088525941]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#spline_chart_div2", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "f(x)"}, "x": {"label": "x"}}})
+</script>
