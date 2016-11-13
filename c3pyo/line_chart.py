@@ -64,7 +64,7 @@ class LineChart(C3Chart):
                     x_is_datetimes = [isinstance(x, datetime.datetime) for x in item[1:]]
                     if all(x_is_dates) and not all(x_is_datetimes):
                         self.x_is_dates = True
-                        self.data[idx] = [x.strftime(DATETIME_FORMAT) if isinstance(x, datetime.date) else x for x in item]
+                        self.data[idx] = [x.strftime(DATE_FORMAT) if isinstance(x, datetime.date) else x for x in item]
                     elif all(x_is_datetimes):
                         self.x_is_datetimes = True
                         self.data[idx] = [x.strftime(DATETIME_FORMAT) if isinstance(x, datetime.date) else x for x in item]
