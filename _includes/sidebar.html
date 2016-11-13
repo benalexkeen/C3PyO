@@ -19,7 +19,7 @@
             <ul class="pure-menu-list">
                 {% for post in site.categories[page.category] reversed  %}
 
-                    <li class="pure-menu-item {% if location == post.url %}pure-menu-selected{% endif %}"><a href="{{ post.url }}" class="pure-menu-link">{{ post.title }}</a></li>
+                    <li class="pure-menu-item {% if location == post.url %}pure-menu-selected{% endif %}"><a href="{{ site.baseurl }}{{ post.url }}" class="pure-menu-link">{{ post.title }}</a></li>
                     
                 {% endfor %}
 
