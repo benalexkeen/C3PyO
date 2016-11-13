@@ -43,13 +43,13 @@ class DonutChart(PieChart):
     def __init__(self, **kwargs):
         super(DonutChart, self).__init__(**kwargs)
         self._chart_type = 'donut'
-        self.donut_title_value = kwargs.get('donut_title', None)
+        self._donut_title_value = kwargs.get('donut_title', None)
 
     def donut_title(self, title):
-        self.donut_title_value = title
+        self._donut_title_value = title
 
     def get_donut_for_json(self):
-        if not self.donut_title_value:
+        if not self._donut_title_value:
             return None
         else:
-            return {'title': self.donut_title_value}
+            return {'title': self._donut_title_value}
