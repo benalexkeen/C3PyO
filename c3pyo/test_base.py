@@ -54,14 +54,14 @@ import c3pyo as c3
 
 ### Scatter Chart
 
-dataset_1 = {'x': [1, 2, 3, 4, 5], 'y': [6, 7, 8, 9, 10]}
-dataset_2 = {'x': [1.5, 2.5, 3.5, 4.5, 5.5], 'y': [5, 6, 7, 8, 9]}
-
-
-chart = c3.ScatterChart()
-chart.plot(dataset_1['x'], dataset_1['y'], label='Dataset1')
-chart.plot(dataset_2['x'], dataset_2['y'], label='Dataset2')
-chart.show()
+# dataset_1 = {'x': [1, 2, 3, 4, 5], 'y': [6, 7, 8, 9, 10]}
+# dataset_2 = {'x': [1.5, 2.5, 3.5, 4.5, 5.5], 'y': [5, 6, 7, 8, 9]}
+#
+#
+# chart = c3.ScatterChart()
+# chart.plot(dataset_1['x'], dataset_1['y'], label='Dataset1')
+# chart.plot(dataset_2['x'], dataset_2['y'], label='Dataset2')
+# chart.show()
 
 ### Pie Chart
 
