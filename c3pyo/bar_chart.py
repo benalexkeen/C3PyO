@@ -6,10 +6,10 @@ class BarChart(C3Chart):
     def __init__(self, **kwargs):
         super(BarChart, self).__init__(**kwargs)
         self.bar_ratio = kwargs.get('bar_ratio', 0.8)
-        self.data = []
-        self.chart_type = 'bar'
+        self._data = []
+        self._chart_type = 'bar'
         self.y_number = 1
-        self.stacked_bar = kwargs.get('stacked', False)
+        self._stacked_bar = kwargs.get('stacked', False)
         self.x_labels = kwargs.get('x_ticklabels', [])
 
     def set_xticklabels(self, ticklabels):
@@ -18,9 +18,10 @@ class BarChart(C3Chart):
     def stacked(self, stacked_bar):
         if not isinstance(stacked_bar, bool):
             raise TypeError("arg for stacked must be boolean, received {}".format(type(stacked_bar)))
-        self.stacked_bar = stacked_bar
+        self._stacked_bar = stacked_bar
 
     def plot(self, y, color=None, label=None, type=None):
+        y = list(y)
         if not label:
             y_series_label = "y{}".format(self.y_number)
             self.y_number += 1
@@ -31,19 +32,19 @@ class BarChart(C3Chart):
         if color:
             self.add_color(color, y_series_label)
         if type is not None and type in valid_types:
-            self.types[y_series_label] = type
+            self._types[y_series_label] = type
         else:
             raise ValueError('type {} not recognised, use type from {}'.format(type, valid_types))
-        self.data.append(y_data)
+        self._data.append(y_data)
 
     def get_data_for_json(self):
         data = {
-            'columns': self.data,
-            'type': self.chart_type,
-            'colors': self.colors,
+            'columns': self._data,
+            'type': self._chart_type,
+            'colors': self._colors,
         }
-        if self.stacked_bar:
-            data['groups'] = [[series[0] for series in self.data]]
+        if self._stacked_bar:
+            data['groups'] = [[series[0] for series in self._data]]
         return data
 
     def get_axis_for_json(self):
@@ -51,10 +52,10 @@ class BarChart(C3Chart):
             'x': {
                 'type': 'category',
                 'categories': self.x_labels,
-                'label': self.label_for_x
+                'label': self._label_for_x
             },
             'y': {
-                'label': self.label_for_y
+                'label': self._label_for_y
             }
         }
 

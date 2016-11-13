@@ -78,7 +78,7 @@ def test_add_color():
 
     def check_passing_test_case(color, y_label, hex_code):
         chart.add_color(color, y_label)
-        assert_in(hex_code, chart.colors.values())
+        assert_in(hex_code, chart._colors.values())
 
     failing_test_cases = [
         '#a', '#ab', '#aeg', '#12', '12', '1894', '#9802', '#aef31',
