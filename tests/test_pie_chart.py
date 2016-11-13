@@ -16,6 +16,7 @@ def test_pie_chart():
     assert_equals(res['data']['type'], 'pie')
     assert_equals(res['data']['colors']['var2'], '#FFFFFF')
 
+
 def test_donut_chart():
     chart = c3.DonutChart()
     chart.plot([4, 5, 6], label='var4')
