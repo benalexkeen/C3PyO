@@ -10,8 +10,8 @@ collections: null
 title: 'C3PyO'
 tagline: 'Create Interactive Graphs Using C3.js and Python'
 description: 'Create Interactive Graphs Using C3.js and Python for your projects and websites.'
-url: http://benalexkeen.github.io/C3PyO/ # http://benalexkeen.github.io/C3PyO/
-assets: http://benalexkeen.github.io/C3PyO/assets/ # http://benalexkeen.github.io/C3PyO/assets/
+url: http://benalexkeen.github.io/C3PyO/ 
+assets: http://benalexkeen.github.io/C3PyO/assets/
 
 # Handling Reading
 safe:         false
@@ -33,7 +33,7 @@ gems:      []
 
 # Conversion
 markdown:    kramdown
-highlighter: pygments
+highlighter: rouge
 lsi:         false
 excerpt_separator: "\n\n"
 
@@ -41,7 +41,7 @@ excerpt_separator: "\n\n"
 detach:  false
 port:    4000
 host:    127.0.0.1
-baseurl: "" # does not include hostname
+baseurl: /C3PyO
 
 # Outputting
 permalink: /:categories/:title/
