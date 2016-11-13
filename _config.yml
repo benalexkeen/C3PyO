@@ -10,8 +10,8 @@ collections: null
 title: 'C3PyO'
 tagline: 'Create Interactive Graphs Using C3.js and Python'
 description: 'Create Interactive Graphs Using C3.js and Python for your projects and websites.'
-url: http://benalexkeen.github.io/C3PyO/ 
-assets: http://benalexkeen.github.io/C3PyO/assets/
+url: http://benalexkeen.github.io/C3PyO
+assets: http://benalexkeen.github.io/C3PyO/assets
 
 # Handling Reading
 safe:         false
