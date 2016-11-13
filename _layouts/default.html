@@ -1,24 +1,66 @@
 ---
-layout: compress
 ---
 
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body>
+<body>
 
-    {% include header.html %}
+    <div id="wrapper" class="toggled">
 
-    <div class="page-content">
-      
-        {{ content }}
-     
+       {% include sidebar.html %}
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+           <a href="#" id="menu-toggle">
+           <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 459 459"><path fill="{{site.accent-color}}" d="M0 382.5h459v-51H0V382.5zM0 255h459v-51H0V255zM0 76.5v51h459v-51H0z"/></svg>
+        </a>
+
+            <div class="container-fluid">
+                <div class="col-md-8">
+                    {{ content }}
+                </div>
+            <div class="col-md-4 text-center author-bar">
+                    <div id="author-div">
+                        <img class="img-circle" width="200px" src="{{site.baseurl}}{{site.author-image}}">
+                        <p>Hi, I'm <strong>Sharath dt</strong>. I'm a <strong>Front End Designer</strong> from Bengaluru.</p>
+                        <p>I write Jekyll tutorials on <a target="_blank" href="http://blog.webjeda.com"><strong>WebJeda Blog</strong></a>. Check out my other works <a target="_blank" href="http://webjeda.com"><strong>here</strong></a>.</p>
+                        <p><a href="https://twitter.com/sharathdt" class="twitter-follow-button" data-show-count="false" data-size="large">Follow {{site.twitter-handle}}</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+                    </div>
+                </div>
+
+                
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+   
+   
     </div>
-{% include footer.html %}
-  {% if site.analytics %}{% include analytics.html %}{% endif %}
-  </body>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{{site.baseurl}}/js/jquery.js"></script>
+     
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+ {% if site.analytics %}{% include analytics.html %}{% endif %}
+
+     
+
+</body>
 
 </html>

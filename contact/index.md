@@ -1,11 +1,13 @@
 ---
 layout: page
 title: Contact
+desc: I would like to know what my users have to say about the website. Any query suggestion, tip would be great. Contacting WebJeda is easy. Just fill up the form and hit send.
 permalink: /contact/
 ---
 
+This is a sample form. Update API TOKEN recieved from [SimpleForm](https://getsimpleform.com){: target="_blank" rel="nofollow"} in the _config.yml
 
-<form id="contact-form" class="form" action="https://getsimpleform.com/messages?form_api_token=<API-TOKEN>" method="POST" enctype="multipart/form-data">
+<form id="contact-form" class="form" action="https://getsimpleform.com/messages?form_api_token={{site.simpleform-api-token}}" method="POST" enctype="multipart/form-data">
         <ul class="contact-ul">
             <li class="contact-li">
                 <label class="contact-label" for="name">Name:</label>
@@ -26,10 +28,6 @@ permalink: /contact/
         
 </form>
 
-This form is setup using [SimpleForm](https://getsimpleform.com){: target="_blank" rel="nofollow"}. You can get your own API token or use other forms deleting this whole form. But remember, php forms will not work on Jekyll.
-
-
-The styles for the form is included in this page. I haven't included it in the main age because it has at least 25 lines of css and it is used only on this page. So including it in main css file doesn't make sense.
 
 
 <style>
@@ -46,7 +44,7 @@ The styles for the form is included in this page. I haven't included it in the m
 
 .contact-input:focus {
     outline:none;
-    border-bottom: 1px solid {{site.color-1}};
+    border-bottom: 1px solid {{site.accent-color}};
 }
 
 .contact-label {
@@ -60,7 +58,7 @@ ul.contact-ul {
 
 #submit {
     border:none;
-    background-color: {{site.color-1}};
+    background-color: {{site.accent-color}};
     padding: 5px 15px;
     color: #eee;
     opacity: 0.8;
