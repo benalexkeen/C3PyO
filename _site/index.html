@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
+  
+  	<title>C3PyO - Create Interactive Graphs Using C3.js and Python - Home</title>
+
+	<!-- Pure.css -->
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+	<!-- Font Aswesome -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+	<link rel="stylesheet" href="http://localhost:4000/assets/css/c3.css">
+	<!--js-->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/google/code-prettify/master/styles/desert.css">
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<script src="http://localhost:4000/assets/js/c3.min.js"></script>
+	<script src="http://localhost:4000/assets/js/d3.min.js"></script>
+
+	
+	<!-- <!-- <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62643788-1', 'auto');
+  ga('send', 'pageview');
+
+</script> --> -->
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	    <link rel="stylesheet" href="http://localhost:4000/assets/css/layouts/marketing.css">
+	<!--<![endif]-->
+
+
+</head>
+<body>
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="http://localhost:4000">C3PyO</a>
+
+        <ul class="pure-menu-list">
+        	
+            
+				<li class="pure-menu-item "><a href="/" class="pure-menu-link">Home</a></li>
+			
+				<li class="pure-menu-item "><a href="/docs/" class="pure-menu-link">Documentation</a></li>
+			
+
+			<li class="pure-menu-item"><a class="pure-menu-link" href="http://www.benalexkeen.com">About Me</a></li>
+
+			<li class="pure-menu-item"><a class="github-button pure-menu-link" href="https://github.com/benalexkeen/C3PyO" data-icon="octicon-star" data-style="mega"  aria-label="Star github.com/benalexkeen/C3PyO">Star</a></li>
+
+			<li class="pure-menu-item"><a class="github-button pure-menu-link" href="https://github.com/benalexkeen/C3PyO/fork" data-icon="octicon-git-branch" data-style="mega" aria-label="Fork benalexkeen/C3PyO on GitHub">Fork</a></li>
+
+			<li class="pure-menu-item"><a class="github-button pure-menu-link" href="https://github.com/benalexkeen/C3PyO/archive/master.zip" data-icon="octicon-cloud-download" data-style="mega" aria-label="Download benalexkeen/C3PyO on GitHub">Download</a></li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">C3PyO</h1>
+        <p class="splash-subhead">
+            Create Interactive Graphs Using C3.js and Python
+        </p>
+        <p>
+            <a href="/docs" class="pure-button pure-button-primary">Get Started</a>
+        </p>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center">Get started using interactive graphs in your web projects</h2>
+        <div id='chart_div'></div>
+            <script>
+                    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Series 2": "x_Series 2", "Series 1": "x_Series 1"}, "colors": {}, "type": "line", "columns": [["x_Series 1", 1, 2, 3, 4, 5, 6, 7], ["Series 1", 150, 450, 200, 100, 300, 0, 325], ["x_Series 2", 1, 2, 3, 4, 5, 6, 7], ["Series 2", 230, 220, 150, 400, 105, 50, 302]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+            </script>
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    Get Started Quickly
+                </h3>
+                <p>
+                    The above graph is generated using just 4 lines of python code.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-bar-chart-o"></i>
+                    Customisation
+                </h3>
+                <p>
+                    Choose from line charts, bar charts, pie charts, spline charts, area charts, donut charts or step charts to display your data.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-th-large"></i>
+                    Easy to Configure
+                </h3>
+                <p>
+                    Simple syntax, similar to matplotlib, makes it easy to learn and configure new settings.
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-check-square-o"></i>
+                    Django &amp; Flask Tutorials
+                </h3>
+                <p>
+                    Our documentation provides tutorials to include graphs in your Django and Flask projects
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="footer l-box is-center">
+        Hosted using <a href="https://pages.github.com/">GitHub Pages</a>.
+    </div>
+
+</div>
+
+
+<!-- <script src="http://localhost:4000/assets/js/ui.js"></script> -->
+
+<!-- GitHub -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

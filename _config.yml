@@ -1,17 +1,17 @@
 # Where Things Are
 source: .
 destination: ./_site
-plugins: ./_plugins
-layouts: ./_layouts
-data_source: ./_data
+plugins_dir: ./_plugins
+layouts_dir: ./_layouts
+data_dir: ./_data
 collections: null
 
 ## Setup
-title: 'Algomash'
-tagline: 'Create Documentation Website Using Jekyll'
-description: 'Algomash is a Jekyll boilerplate with necessary operations for creating Documentation website for small projects.'
-url: http://algomash.com
-assets: http://algomash.com/assets/
+title: 'C3PyO'
+tagline: 'Create Interactive Graphs Using C3.js and Python'
+description: 'Create Interactive Graphs Using C3.js and Python for your projects and websites.'
+url: http://benalexkeen.github.io/C3PyO/ # http://benalexkeen.github.io/C3PyO/
+assets: http://benalexkeen.github.io/C3PyO/assets/ # http://benalexkeen.github.io/C3PyO/assets/
 
 # Handling Reading
 safe:         false
@@ -47,7 +47,7 @@ baseurl: "" # does not include hostname
 permalink: /:categories/:title/
 paginate_path: /page:num
 paginate: 15
-timezone: Asia/Calcutta
+timezone: Europe/London
 include: ['_pages']
 relative_permalinks: false
 quiet:    false
@@ -59,7 +59,7 @@ rdiscount:
 redcarpet:
   extensions: []
 
-kramdown:
+syntax_highlighter_opts:
   auto_ids:       true
   footnote_nr:    1
   entity_output:  as_char

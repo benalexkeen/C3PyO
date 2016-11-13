@@ -5,38 +5,40 @@ title: Home
 
 <div class="splash-container">
     <div class="splash">
-        <h1 class="splash-head">Jekyll Boilerplate</h1>
+        <h1 class="splash-head">C3PyO</h1>
         <p class="splash-subhead">
-            With necessary operations for creating Documentation Website
+            Create Interactive Graphs Using C3.js and Python
         </p>
         <p>
-            <a href="http://algomash.com/docs" class="pure-button pure-button-primary">Get Started</a>
+            <a href="/docs" class="pure-button pure-button-primary">Get Started</a>
         </p>
     </div>
 </div>
 
 <div class="content-wrapper">
     <div class="content">
-        <h2 class="content-head is-center">Especially Designed for Smaller Projects</h2>
-
+        <h2 class="content-head is-center">Get started using interactive graphs in your web projects</h2>
+        <div id='chart_div'></div>
+            <script>
+                    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Series 2": "x_Series 2", "Series 1": "x_Series 1"}, "colors": {}, "type": "line", "columns": [["x_Series 1", 1, 2, 3, 4, 5, 6, 7], ["Series 1", 150, 450, 200, 100, 300, 0, 325], ["x_Series 2", 1, 2, 3, 4, 5, 6, 7], ["Series 2", 230, 220, 150, 400, 105, 50, 302]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+            </script>
         <div class="pure-g">
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-
                 <h3 class="content-subhead">
                     <i class="fa fa-rocket"></i>
                     Get Started Quickly
                 </h3>
                 <p>
-                    Algomash uses Jekyll &mdash; a free blog-aware CMS in Ruby. It can be freely hosted on GitHub Pages. No server maintenance.
+                    The above graph is generated using just 4 lines of python code.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                 <h3 class="content-subhead">
-                    <i class="fa fa-mobile"></i>
-                    Responsive Layouts
+                    <i class="fa fa-bar-chart-o"></i>
+                    Customisation
                 </h3>
                 <p>
-                    The core Algomash uses <a href="http://purecss.io/">Pure.css</a> which is a set of small, responsive CSS modules. It's only 18 KB. You can use your own CSS.
+                    Choose from line charts, bar charts, pie charts, spline charts, area charts, donut charts or step charts to display your data.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -45,71 +47,25 @@ title: Home
                     Easy to Configure
                 </h3>
                 <p>
-                    Algomash is very easy to configure. Open a text editor, add your site URL and title. Start adding content. Use Markdown or Textile.
+                    Simple syntax, similar to matplotlib, makes it easy to learn and configure new settings.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                 <h3 class="content-subhead">
                     <i class="fa fa-check-square-o"></i>
-                    Customize Algomash
+                    Django &amp; Flask Tutorials
                 </h3>
                 <p>
-                    As stated already, Algomash is a boilerplate. It's no CMS, framework or plugin. You can customize the heck out of this!
+                    Our documentation provides tutorials to include graphs in your Django and Flask projects
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="ribbon l-box-lrg pure-g">
-        <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
-            <a href="https://github.com/deepakbansal/algomash-jekyll" title="Download and Customize"><img class="pure-img-responsive" alt="Download and Customize" width="300" src="{{ site.assets }}img/common/file-icons.png"></a>
-
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
-
-            <h2 class="content-head content-head-ribbon">Algomash is Free.</h2>
-
-            <p>
-                Yes, free as in freedom. You can download or fork Algomash from GitHub and get started however you wish. I've provided a neat documentation and step by step tutorial on how to create a documentation website for free.
-                Algomash is available under GNU General Public License v2.0.
-            </p>
-        </div>
-    </div>
-
-    <div class="content">
-        <h2 class="content-head is-center">Creating documentations has never been easier.</h2>
-
-        <div class="pure-g">
-            <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
-                <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s); js.id = id;
-                      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=419661974898949";
-                      fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-                <div class="fb-page" data-href="https://www.facebook.com/logsdb" data-width="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/logsdb"><a href="https://www.facebook.com/logsdb">LogsDB</a></blockquote></div></div>
-            </div>
-
-            <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
-                <h4>About Me</h4>
-                <p>
-                   Hi, I am <a href="http://www.dbansal.com">Deepak Bansal</a>, Computer Science student, Web developer and WordPress expert. I love photography and graphic designing. When bored in class, I write poetry.
-
-                   I code in HTML5, CSS3, PHP, MySQL, JavaScript and jQuery on Ubuntu and Windows. I'm an intermediate in Laravel and a beginner in Adobe Illustrator and Photoshop. I'm also learning Ruby on Rails.
-                </p>
-                <p>
-                    <!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/deepakbansal" data-style="mega" data-count-href="/deepakbansal/followers" data-count-api="/users/deepakbansal#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @deepakbansal on GitHub">Follow @deepakbansal</a>
-                </p>
-            </div>
-        </div>
-
-    </div>
+    
 
     <div class="footer l-box is-center">
-        Created by <a href="http://www.dbansal.com" rel="publisher">Deepak Bansal</a> using <a href="http://purecss.io">Pure.css</a> and <a href="http://jekyllrb.com">Jekyll</a>. Hosted on <a href="http://www.siteground.com/recommended?referrer_id=7179422">SiteGround</a>.
+        Hosted using <a href="https://pages.github.com/">GitHub Pages</a>.
     </div>
 
 </div>

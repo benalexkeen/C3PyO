@@ -1,0 +1,70 @@
+---
+layout: project
+title: Documentation
+category: docs
+permalink: docs/
+excerpt: Getting Started
+---
+<h2> Installation </h2>
+<pre class="prettyprint lang-bsh">
+    git clone git@github.com:benalexkeen/C3PyO
+    cd C3PyO
+    pip install -e .
+</pre>
+
+<h2> Simple Line Chart </h2>
+
+<pre class="prettyprint lang-py">
+    x = [1, 2, 3, 4, 5, 6, 7]
+    y1 = [150, 450, 200, 100, 300, 0, 325]
+    y2 = [230, 220, 150, 400, 105, 50, 302]
+    
+    import c3pyo as c3
+    chart = c3.LineChart()
+    chart.plot(x, y1, label='Series 1')
+    chart.plot(x, y2, label='Series 2')
+    chart.show()
+</pre>
+<div id='line_chart_div'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Series 2": "x_Series 2", "Series 1": "x_Series 1"}, "colors": {}, "type": "line", "columns": [["x_Series 1", 1, 2, 3, 4, 5, 6, 7], ["Series 1", 150, 450, 200, 100, 300, 0, 325], ["x_Series 2", 1, 2, 3, 4, 5, 6, 7], ["Series 2", 230, 220, 150, 400, 105, 50, 302]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#line_chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
+
+<h2> Simple Bar Chart </h2>
+
+<pre class="prettyprint lang-py">
+    men_height = [175, 176, 172, 172, 177]
+    women_height = [156, 162, 158, 160, 164]
+    countries = ['UK', 'USA', 'Japan', 'China', 'Russia']
+    
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(men_height, label='Men_Heights')
+    chart.plot(women_height, label='Women_Heights')
+    chart.set_xticklabels(countries)
+    chart.ylabel('Height (cm)')
+    chart.show()
+</pre>
+<div id='bar_chart_div'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {}, "type": "bar", "columns": [["Men_Heights", 175, 176, 172, 172, 177], ["Women_Heights", 156, 162, 158, 160, 164]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#bar_chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Height (cm)"}, "x": {"type": "category", "categories": ["UK", "USA", "Japan", "China", "Russia"], "label": null}}})
+</script>
+
+<h2> Simple Pie Chart </h2>
+
+<pre class="prettyprint lang-py">
+    import c3pyo as c3
+    chart = c3.PieChart()
+    chart.plot(45000, label='Google')
+    chart.plot(30000, label='Social Media')
+    chart.plot(25000, label='Referral')
+    chart.plot(10000, label='Email Marketing')
+    chart.show()
+</pre>
+<div id='pie_chart_div'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {}, "type": "pie", "columns": [["Google", 45000], ["Social Media", 30000], ["Referral", 25000], ["Email Marketing", 10000]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#pie_chart_div", "donut": {}, "points": {"show": true}, "axis": {}})
+</script>
+
+
+
