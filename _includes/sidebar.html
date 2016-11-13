@@ -11,7 +11,7 @@
             </ul>
             {% for category in site.data.categories %}
                 {% if page.category %}
-                    <a class="pure-menu-heading" href="{{ site.url }}/{{ page.category }}">{% if category.slug == page.category %}{{ category.name }}{% endif %}</a>
+                    <a class="pure-menu-heading" href="{{ site.url }}/{{ page.category }}/index.html">{% if category.slug == page.category %}{{ category.name }}{% endif %}</a>
                 {% endif %}
             {% endfor %}
 
