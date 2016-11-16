@@ -1,0 +1,47 @@
+---
+layout: post
+title: Bar Charts
+category: docs
+excerpt: Bar Charts using C3PyO
+---
+<pre class="prettyprint lang-py">
+    x = ['Nuclear', 'Hydro', 'Gas', 'Oil', 'Coal', 'Biofuel']
+    energy = [5, 6, 15, 22, 24, 8]
+
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(energy, color='g', label='Energy from fuel source')
+    chart.set_xticklabels(x)
+    chart.ylabel('Energy Output (GJ)')
+    chart.show()
+</pre>
+
+<div id='bar_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {"Energy from fuel sources": "#008000"}, "type": "bar", "columns": [["Energy from fuel sources", 5, 6, 15, 22, 24, 8]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#bar_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Energy Output (GJ)"}, "x": {"type": "category", "categories": ["Nuclear", "Hydro", "Gas", "Oil", "Coal", "Biofuel"], "label": null}}})
+</script>
+
+<pre class="prettyprint lang-py">
+    js_repos = [2716, 3121, 3651, 4718, 5399, 7736]
+    python_repos = [1535, 1649, 2081, 2460, 2643, 4243]
+    java_repos = [1631, 1893, 2227, 2629, 3132, 4483]
+    php_repos = [1176, 1144, 1355, 1590, 1904, 2727]
+    c_pp_repos = [666, 783, 883, 1091, 1260, 1749]
+    months = ['Jan 2014', 'Jul 2014', 'Jan 2015', 'Jul 2015', 'Jan 2016', 'Jul 2016']
+
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(js_repos, label='Javascript')
+    chart.plot(python_repos, label='Python')
+    chart.plot(java_repos, label='Java')
+    chart.plot(php_repos, label='PHP')
+    chart.plot(c_pp_repos, label='C++')
+    chart.set_xticklabels(months)
+    chart.ylabel('Active Git Repos')
+    chart.show()
+</pre>
+
+<div id='bar_chart_2'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {}, "type": "bar", "columns": [["Javascript", 2716, 3121, 3651, 4718, 5399, 7736], ["Python", 1535, 1649, 2081, 2460, 2643, 4243], ["Java", 1631, 1893, 2227, 2629, 3132, 4483], ["PHP", 1176, 1144, 1355, 1590, 1904, 2727], ["C++", 666, 783, 883, 1091, 1260, 1749]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#bar_chart_2", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Active Git Repos"}, "x": {"type": "category", "categories": ["Jan 2014", "Jul 2014", "Jan 2015", "Jul 2015", "Jan 2016", "Jul 2016"], "label": null}}})
+</script>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
+  
+  	<title>C3PyO - docs - Line Charts</title>
+
+	<!-- Pure.css -->
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/pure-min.css" \>
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/grids-responsive-min.css" \>
+	<!-- Font Aswesome -->
+	<link rel="stylesheet" type='text/css' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"\>
+	<link rel="stylesheet" type='text/css' href="/assets/css/c3.css" \>
+	<!--js-->
+	<link rel="stylesheet" type='text/css' href="https://cdn.rawgit.com/google/code-prettify/master/styles/desert.css" \>
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<script src="/assets/js/c3.min.js"></script>
+	<script src="/assets/js/d3.min.js"></script>
+
+	
+	<!-- <!-- <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62643788-1', 'auto');
+  ga('send', 'pageview');
+
+</script> --> -->
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	      <link rel="stylesheet"  type='text/css' href="/assets/css/layouts/side-menu.css" \>
+	<!--<![endif]-->
+
+</head>
+<body>
+<div id="layout">
+
+        <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item menu-item-divided"><a href="" class="pure-menu-link">C3PyO</a></li>
+            </ul>
+            
+                
+                    <a class="pure-menu-heading" href="/docs/index.html">Documentation</a>
+                
+            
+
+            
+
+            <ul class="pure-menu-list">
+                
+
+                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/spline_charts/" class="pure-menu-link">Spline Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/step_charts/" class="pure-menu-link">Step Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/scatter_charts/" class="pure-menu-link">Scatter Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/bar_charts/" class="pure-menu-link">Bar Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/stacked_bar_charts/" class="pure-menu-link">Stacked Bar Charts</a></li>
+                    
+                
+
+            </ul>
+            
+        </div>
+    </div>
+
+    <div id="main">
+    
+        <div class="header">
+            <h1>Line Charts</h1>
+            <h2>Line Charts using C3PyO</h2>
+        </div>
+
+        <div class="content">
+            <pre class="prettyprint lang-py">
+    x = [2011, 2012, 2013, 2014, 2015, 2016]
+    arsenal = [72, 74, 72, 68, 71, 65]
+    chelsea = [69, 65, 75, 71, 73, 59]
+    liverpool = [59, 47, 71, 101, 52, 63]
+    man_city = [60, 93, 66, 102, 83, 71]
+    man_utd = [78, 89, 86, 64, 62, 49]
+    
+    import c3pyo as c3
+    chart = c3.LineChart()
+    chart.plot(x, arsenal, color='red', label='Arsenal')
+    chart.plot(x, chelsea, color='blue', label='Chelsea')
+    chart.plot(x, liverpool, color='darkred', label='Liverpool')
+    chart.plot(x, man_city, color='skyblue', label='Man City')
+    chart.plot(x, man_utd, color='black', label='Man Utd')
+    chart.xlabel('Year')
+    chart.ylabel('Goals Scored')
+    chart.show()
+</pre>
+
+<div id='chart_div'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Man City": "x_Man City", "Liverpool": "x_Liverpool", "Chelsea": "x_Chelsea", "Arsenal": "x_Arsenal", "Man Utd": "x_Man Utd"}, "colors": {"Man City": "#87CEEB", "Liverpool": "#8B0000", "Chelsea": "#0000FF", "Arsenal": "#FF0000", "Man Utd": "#000000"}, "type": "line", "columns": [["x_Arsenal", 2011, 2012, 2013, 2014, 2015, 2016], ["Arsenal", 72, 74, 72, 68, 71, 65], ["x_Chelsea", 2011, 2012, 2013, 2014, 2015, 2016], ["Chelsea", 69, 65, 75, 71, 73, 59], ["x_Liverpool", 2011, 2012, 2013, 2014, 2015, 2016], ["Liverpool", 59, 47, 71, 101, 52, 63], ["x_Man City", 2011, 2012, 2013, 2014, 2015, 2016], ["Man City", 60, 93, 66, 102, 83, 71], ["x_Man Utd", 2011, 2012, 2013, 2014, 2015, 2016], ["Man Utd", 78, 89, 86, 64, 62, 49]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Goals Scored"}, "x": {"label": "Year"}}})
+</script>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="/assets/js/ui.js"></script>
+
+<!-- GitHub -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

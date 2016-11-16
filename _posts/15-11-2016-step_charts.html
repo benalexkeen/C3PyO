@@ -1,0 +1,22 @@
+---
+layout: post
+title: Step Charts
+category: docs
+excerpt: Step Charts using C3PyO
+---
+<pre class="prettyprint lang-py">
+    x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    threes = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+    fib = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+    import c3pyo as c3
+    chart = c3.StepChart()
+    chart.plot(x, threes, label='threes')
+    chart.plot(x, fib, label='fibonacci')
+    chart.show()
+</pre>
+
+<div id='step_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"threes": "x_threes", "fibonacci": "x_fibonacci"}, "colors": {}, "type": "step", "columns": [["x_threes", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ["threes", 3, 6, 9, 12, 15, 18, 21, 24, 27, 30], ["x_fibonacci", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ["fibonacci", 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#step_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>

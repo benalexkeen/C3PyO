@@ -1,0 +1,27 @@
+---
+layout: post
+title: Stacked Bar Charts
+category: docs
+excerpt: Stacked Bar Charts using C3PyO
+---
+<pre class="prettyprint lang-py">
+    countries = ['USA', 'GB', 'China', 'Russia', 'Germany']
+    golds = [46, 27, 26, 19, 17]
+    silvers = [37, 23, 18, 18, 10]
+    bronzes = [38, 17, 26, 19, 15]
+
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(golds, color='GoldenRod', label='Golds')
+    chart.plot(silvers, color='Silver', label='Silvers')
+    chart.plot(bronzes, color='#CD853F', label='Bronzes')
+    chart.stacked(True)
+    chart.set_xticklabels(countries)
+    chart.ylabel('Medals at 2016 Olympics')
+    chart.show()
+</pre>
+
+<div id='stacked_bar_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {"Golds": "#DAA520", "Bronzes": "#CD853F", "Silvers": "#C0C0C0"}, "type": "bar", "groups": [["Golds", "Silvers", "Bronzes"]], "columns": [["Golds", 46, 27, 26, 19, 17], ["Silvers", 37, 23, 18, 18, 10], ["Bronzes", 38, 17, 26, 19, 15]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#stacked_bar_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Medals at 2016 Olympics"}, "x": {"type": "category", "categories": ["USA", "GB", "China", "Russia", "Germany"], "label": null}}})
+</script>

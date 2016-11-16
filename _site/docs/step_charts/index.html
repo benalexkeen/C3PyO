@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
+  
+  	<title>C3PyO - docs - Step Charts</title>
+
+	<!-- Pure.css -->
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/pure-min.css" \>
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/grids-responsive-min.css" \>
+	<!-- Font Aswesome -->
+	<link rel="stylesheet" type='text/css' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"\>
+	<link rel="stylesheet" type='text/css' href="/assets/css/c3.css" \>
+	<!--js-->
+	<link rel="stylesheet" type='text/css' href="https://cdn.rawgit.com/google/code-prettify/master/styles/desert.css" \>
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<script src="/assets/js/c3.min.js"></script>
+	<script src="/assets/js/d3.min.js"></script>
+
+	
+	<!-- <!-- <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62643788-1', 'auto');
+  ga('send', 'pageview');
+
+</script> --> -->
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	      <link rel="stylesheet"  type='text/css' href="/assets/css/layouts/side-menu.css" \>
+	<!--<![endif]-->
+
+</head>
+<body>
+<div id="layout">
+
+        <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item menu-item-divided"><a href="" class="pure-menu-link">C3PyO</a></li>
+            </ul>
+            
+                
+                    <a class="pure-menu-heading" href="/docs/index.html">Documentation</a>
+                
+            
+
+            
+
+            <ul class="pure-menu-list">
+                
+
+                    <li class="pure-menu-item "><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/spline_charts/" class="pure-menu-link">Spline Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/step_charts/" class="pure-menu-link">Step Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/scatter_charts/" class="pure-menu-link">Scatter Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/bar_charts/" class="pure-menu-link">Bar Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/stacked_bar_charts/" class="pure-menu-link">Stacked Bar Charts</a></li>
+                    
+                
+
+            </ul>
+            
+        </div>
+    </div>
+
+    <div id="main">
+    
+        <div class="header">
+            <h1>Step Charts</h1>
+            <h2>Step Charts using C3PyO</h2>
+        </div>
+
+        <div class="content">
+            <pre class="prettyprint lang-py">
+    x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    threes = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+    fib = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+    import c3pyo as c3
+    chart = c3.StepChart()
+    chart.plot(x, threes, label='threes')
+    chart.plot(x, fib, label='fibonacci')
+    chart.show()
+</pre>
+
+<div id='step_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"threes": "x_threes", "fibonacci": "x_fibonacci"}, "colors": {}, "type": "step", "columns": [["x_threes", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ["threes", 3, 6, 9, 12, 15, 18, 21, 24, 27, 30], ["x_fibonacci", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ["fibonacci", 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#step_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
+        </div>
+
+    </div>
+</div>
+
+<script src="/assets/js/ui.js"></script>
+
+<!-- GitHub -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

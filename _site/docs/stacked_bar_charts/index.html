@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
   
-  	<title>C3PyO - docs - Line Graphs</title>
+  	<title>C3PyO - docs - Stacked Bar Charts</title>
 
 	<!-- Pure.css -->
 	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/pure-min.css" \>
@@ -63,11 +63,27 @@
             <ul class="pure-menu-list">
                 
 
-                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/line_graphs/" class="pure-menu-link">Line Graphs</a></li>
+                    <li class="pure-menu-item "><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
                     
                 
 
-                    <li class="pure-menu-item "><a href="/docs/spline_graphs/" class="pure-menu-link">Spline Graphs</a></li>
+                    <li class="pure-menu-item "><a href="/docs/spline_charts/" class="pure-menu-link">Spline Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/step_charts/" class="pure-menu-link">Step Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/scatter_charts/" class="pure-menu-link">Scatter Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/bar_charts/" class="pure-menu-link">Bar Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/stacked_bar_charts/" class="pure-menu-link">Stacked Bar Charts</a></li>
                     
                 
 
@@ -79,36 +95,32 @@
     <div id="main">
     
         <div class="header">
-            <h1>Line Graphs</h1>
-            <h2>Line Graphs using C3PyO</h2>
+            <h1>Stacked Bar Charts</h1>
+            <h2>Stacked Bar Charts using C3PyO</h2>
         </div>
 
         <div class="content">
             <pre class="prettyprint lang-py">
-    x = [2011, 2012, 2013, 2014, 2015, 2016]
-    arsenal = [72, 74, 72, 68, 71, 65]
-    chelsea = [69, 65, 75, 71, 73, 59]
-    liverpool = [59, 47, 71, 101, 52, 63]
-    man_city = [60, 93, 66, 102, 83, 71]
-    man_utd = [78, 89, 86, 64, 62, 49]
-    
+    countries = ['USA', 'GB', 'China', 'Russia', 'Germany']
+    golds = [46, 27, 26, 19, 17]
+    silvers = [37, 23, 18, 18, 10]
+    bronzes = [38, 17, 26, 19, 15]
+
     import c3pyo as c3
-    chart = c3.LineChart()
-    chart.plot(x, arsenal, color='red', label='Arsenal')
-    chart.plot(x, chelsea, color='blue', label='Chelsea')
-    chart.plot(x, liverpool, color='darkred', label='Liverpool')
-    chart.plot(x, man_city, color='skyblue', label='Man City')
-    chart.plot(x, man_utd, color='black', label='Man Utd')
-    chart.xlabel('Goals Scored')
-    chart.ylabel('Year')
+    chart = c3.BarChart()
+    chart.plot(golds, color='GoldenRod', label='Golds')
+    chart.plot(silvers, color='Silver', label='Silvers')
+    chart.plot(bronzes, color='#CD853F', label='Bronzes')
+    chart.stacked(True)
+    chart.set_xticklabels(countries)
+    chart.ylabel('Medals at 2016 Olympics')
     chart.show()
 </pre>
 
-<div id='chart_div'></div>
+<div id='stacked_bar_chart_1'></div>
 <script>
-    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Man City": "x_Man City", "Liverpool": "x_Liverpool", "Chelsea": "x_Chelsea", "Arsenal": "x_Arsenal", "Man Utd": "x_Man Utd"}, "colors": {"Man City": "#87CEEB", "Liverpool": "#8B0000", "Chelsea": "#0000FF", "Arsenal": "#FF0000", "Man Utd": "#000000"}, "type": "line", "columns": [["x_Arsenal", 2011, 2012, 2013, 2014, 2015, 2016], ["Arsenal", 72, 74, 72, 68, 71, 65], ["x_Chelsea", 2011, 2012, 2013, 2014, 2015, 2016], ["Chelsea", 69, 65, 75, 71, 73, 59], ["x_Liverpool", 2011, 2012, 2013, 2014, 2015, 2016], ["Liverpool", 59, 47, 71, 101, 52, 63], ["x_Man City", 2011, 2012, 2013, 2014, 2015, 2016], ["Man City", 60, 93, 66, 102, 83, 71], ["x_Man Utd", 2011, 2012, 2013, 2014, 2015, 2016], ["Man Utd", 78, 89, 86, 64, 62, 49]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Year"}, "x": {"label": "Goals Scored"}}})
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {"Golds": "#DAA520", "Bronzes": "#CD853F", "Silvers": "#C0C0C0"}, "type": "bar", "groups": [["Golds", "Silvers", "Bronzes"]], "columns": [["Golds", 46, 27, 26, 19, 17], ["Silvers", 37, 23, 18, 18, 10], ["Bronzes", 38, 17, 26, 19, 15]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#stacked_bar_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Medals at 2016 Olympics"}, "x": {"type": "category", "categories": ["USA", "GB", "China", "Russia", "Germany"], "label": null}}})
 </script>
-
         </div>
 
     </div>

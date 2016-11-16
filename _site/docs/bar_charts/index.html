@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
+  
+  	<title>C3PyO - docs - Bar Charts</title>
+
+	<!-- Pure.css -->
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/pure-min.css" \>
+	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/grids-responsive-min.css" \>
+	<!-- Font Aswesome -->
+	<link rel="stylesheet" type='text/css' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"\>
+	<link rel="stylesheet" type='text/css' href="/assets/css/c3.css" \>
+	<!--js-->
+	<link rel="stylesheet" type='text/css' href="https://cdn.rawgit.com/google/code-prettify/master/styles/desert.css" \>
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+	<script src="/assets/js/c3.min.js"></script>
+	<script src="/assets/js/d3.min.js"></script>
+
+	
+	<!-- <!-- <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62643788-1', 'auto');
+  ga('send', 'pageview');
+
+</script> --> -->
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	      <link rel="stylesheet"  type='text/css' href="/assets/css/layouts/side-menu.css" \>
+	<!--<![endif]-->
+
+</head>
+<body>
+<div id="layout">
+
+        <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item menu-item-divided"><a href="" class="pure-menu-link">C3PyO</a></li>
+            </ul>
+            
+                
+                    <a class="pure-menu-heading" href="/docs/index.html">Documentation</a>
+                
+            
+
+            
+
+            <ul class="pure-menu-list">
+                
+
+                    <li class="pure-menu-item "><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/spline_charts/" class="pure-menu-link">Spline Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/step_charts/" class="pure-menu-link">Step Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/scatter_charts/" class="pure-menu-link">Scatter Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/bar_charts/" class="pure-menu-link">Bar Charts</a></li>
+                    
+                
+
+                    <li class="pure-menu-item "><a href="/docs/stacked_bar_charts/" class="pure-menu-link">Stacked Bar Charts</a></li>
+                    
+                
+
+            </ul>
+            
+        </div>
+    </div>
+
+    <div id="main">
+    
+        <div class="header">
+            <h1>Bar Charts</h1>
+            <h2>Bar Charts using C3PyO</h2>
+        </div>
+
+        <div class="content">
+            <pre class="prettyprint lang-py">
+    x = ['Nuclear', 'Hydro', 'Gas', 'Oil', 'Coal', 'Biofuel']
+    energy = [5, 6, 15, 22, 24, 8]
+
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(energy, color='g', label='Energy from fuel source')
+    chart.set_xticklabels(x)
+    chart.ylabel('Energy Output (GJ)')
+    chart.show()
+</pre>
+
+<div id='bar_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {"Energy from fuel sources": "#008000"}, "type": "bar", "columns": [["Energy from fuel sources", 5, 6, 15, 22, 24, 8]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#bar_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Energy Output (GJ)"}, "x": {"type": "category", "categories": ["Nuclear", "Hydro", "Gas", "Oil", "Coal", "Biofuel"], "label": null}}})
+</script>
+
+<pre class="prettyprint lang-py">
+    js_repos = [2716, 3121, 3651, 4718, 5399, 7736]
+    python_repos = [1535, 1649, 2081, 2460, 2643, 4243]
+    java_repos = [1631, 1893, 2227, 2629, 3132, 4483]
+    php_repos = [1176, 1144, 1355, 1590, 1904, 2727]
+    c_pp_repos = [666, 783, 883, 1091, 1260, 1749]
+    months = ['Jan 2014', 'Jul 2014', 'Jan 2015', 'Jul 2015', 'Jan 2016', 'Jul 2016']
+
+    import c3pyo as c3
+    chart = c3.BarChart()
+    chart.plot(js_repos, label='Javascript')
+    chart.plot(python_repos, label='Python')
+    chart.plot(java_repos, label='Java')
+    chart.plot(php_repos, label='PHP')
+    chart.plot(c_pp_repos, label='C++')
+    chart.set_xticklabels(months)
+    chart.ylabel('Active Git Repos')
+    chart.show()
+</pre>
+
+<div id='bar_chart_2'></div>
+<script>
+    c3.generate({"grid": {"y": {"lines": [{"value": 0}], "show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"colors": {}, "type": "bar", "columns": [["Javascript", 2716, 3121, 3651, 4718, 5399, 7736], ["Python", 1535, 1649, 2081, 2460, 2643, 4243], ["Java", 1631, 1893, 2227, 2629, 3132, 4483], ["PHP", 1176, 1144, 1355, 1590, 1904, 2727], ["C++", 666, 783, 883, 1091, 1260, 1749]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {"width": {"ratio": 0.8}}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#bar_chart_2", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Active Git Repos"}, "x": {"type": "category", "categories": ["Jan 2014", "Jul 2014", "Jan 2015", "Jul 2015", "Jan 2016", "Jul 2016"], "label": null}}})
+</script>
+        </div>
+
+    </div>
+</div>
+
+<script src="/assets/js/ui.js"></script>
+
+<!-- GitHub -->
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
