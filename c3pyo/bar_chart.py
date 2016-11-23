@@ -57,6 +57,7 @@ class BarChart(C3Chart):
         }
         if self._stacked_bar:
             data['groups'] = [[series[0] for series in self._data]]
+            data['order'] = None
         return data
 
     def get_bar_for_json(self):
