@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Create Interactive Graphs Using C3.js and Python for your projects and websites.">
   
-  	<title>C3PyO - docs - Line Charts</title>
+  	<title>C3PyO - docs - Area Charts</title>
 
 	<!-- Pure.css -->
 	<link rel="stylesheet" type='text/css' href="/assets/css/layouts/pure-min.css" \>
@@ -63,7 +63,7 @@
             <ul class="pure-menu-list">
                 
 
-                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
+                    <li class="pure-menu-item "><a href="/docs/line_charts/" class="pure-menu-link">Line Charts</a></li>
                     
                 
 
@@ -87,7 +87,7 @@
                     
                 
 
-                    <li class="pure-menu-item "><a href="/docs/area_charts/" class="pure-menu-link">Area Charts</a></li>
+                    <li class="pure-menu-item pure-menu-selected"><a href="/docs/area_charts/" class="pure-menu-link">Area Charts</a></li>
                     
                 
 
@@ -99,36 +99,72 @@
     <div id="main">
     
         <div class="header">
-            <h1>Line Charts</h1>
-            <h2>Line Charts using C3PyO</h2>
+            <h1>Area Charts</h1>
+            <h2>Area Charts using C3PyO</h2>
         </div>
 
         <div class="content">
-            <pre class="prettyprint lang-py">
-    x = [2011, 2012, 2013, 2014, 2015, 2016]
-    arsenal = [72, 74, 72, 68, 71, 65]
-    chelsea = [69, 65, 75, 71, 73, 59]
-    liverpool = [59, 47, 71, 101, 52, 63]
-    man_city = [60, 93, 66, 102, 83, 71]
-    man_utd = [78, 89, 86, 64, 62, 49]
-    
+            Charts with filled area under the curve can be made for spline charts, line charts, or step charts using
+<pre class="prettyprint lang-py">
+    chart.area(True)
+</pre>
+<h2> Area Spline Chart Example</h2>
+<pre class="prettyprint lang-py">
+    import datetime
+    dts = [datetime.datetime(2015, 3, 5, x) for x in [10, 11, 12, 13, 14]]
+    y1 = [10, 20, 30, 20, 10]
+    y2 = [20, 10, 30, 40, 0]
+
     import c3pyo as c3
-    chart = c3.LineChart()
-    chart.plot(x, arsenal, color='red', label='Arsenal')
-    chart.plot(x, chelsea, color='blue', label='Chelsea')
-    chart.plot(x, liverpool, color='darkred', label='Liverpool')
-    chart.plot(x, man_city, color='skyblue', label='Man City')
-    chart.plot(x, man_utd, color='black', label='Man Utd')
-    chart.xlabel('Year')
-    chart.ylabel('Goals Scored')
+    chart = c3.SplineChart()
+    chart.area(True)
+    chart.plot(dts, y1, label="y1")
+    chart.plot(dts, y2, label="y2")
     chart.show()
 </pre>
 
-<div id='chart_div'></div>
+<div id='area_chart_1'></div>
 <script>
-    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"Man City": "x_Man City", "Liverpool": "x_Liverpool", "Chelsea": "x_Chelsea", "Arsenal": "x_Arsenal", "Man Utd": "x_Man Utd"}, "colors": {"Man City": "#87CEEB", "Liverpool": "#8B0000", "Chelsea": "#0000FF", "Arsenal": "#FF0000", "Man Utd": "#000000"}, "type": "line", "columns": [["x_Arsenal", 2011, 2012, 2013, 2014, 2015, 2016], ["Arsenal", 72, 74, 72, 68, 71, 65], ["x_Chelsea", 2011, 2012, 2013, 2014, 2015, 2016], ["Chelsea", 69, 65, 75, 71, 73, 59], ["x_Liverpool", 2011, 2012, 2013, 2014, 2015, 2016], ["Liverpool", 59, 47, 71, 101, 52, 63], ["x_Man City", 2011, 2012, 2013, 2014, 2015, 2016], ["Man City", 60, 93, 66, 102, 83, 71], ["x_Man Utd", 2011, 2012, 2013, 2014, 2015, 2016], ["Man Utd", 78, 89, 86, 64, 62, 49]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#chart_div", "donut": {}, "points": {"show": true}, "axis": {"y": {"label": "Goals Scored"}, "x": {"label": "Year"}}})
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"y1": "x_y1", "y2": "x_y2"}, "colors": {}, "type": "area-spline", "xFormat": "%Y-%m-%d %H:%M:%S", "columns": [["x_y1", "2015-03-05 10:00:00", "2015-03-05 11:00:00", "2015-03-05 12:00:00", "2015-03-05 13:00:00", "2015-03-05 14:00:00"], ["y1", 10, 20, 30, 20, 10], ["x_y2", "2015-03-05 10:00:00", "2015-03-05 11:00:00", "2015-03-05 12:00:00", "2015-03-05 13:00:00", "2015-03-05 14:00:00"], ["y2", 20, 10, 30, 40, 0]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {"tick": {"format": "%Y-%m-%d %H:%M:%S"}, "type": "timeseries"}}})
 </script>
 
+<h2> Area Line Chart Example</h2>
+<pre class="prettyprint lang-py">
+    x = [1, 3, 5, 7, 9, 11]
+    y1 = [5, 20, 50, 32, 2, 10]
+    y2 = [54, 12, 23, 32, 39, 10]
+    y3 = [10, 10, 10, 10, 10, 10]
+
+    import c3pyo as c3
+    chart = c3.LineChart()
+    chart.area(True)
+    chart.plot(x, y1, label="y1")
+    chart.plot(x, y2, label="y2")
+    chart.plot(x, y3, label="y3")
+    chart.show()
+</pre>
+
+<div id='area_chart_2'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"y1": "x_y1", "y3": "x_y3", "y2": "x_y2"}, "colors": {}, "type": "area", "columns": [["x_y1", 1, 3, 5, 7, 9, 11], ["y1", 5, 20, 50, 32, 2, 10], ["x_y2", 1, 3, 5, 7, 9, 11], ["y2", 54, 12, 23, 32, 39, 10], ["x_y3", 1, 3, 5, 7, 9, 11], ["y3", 10, 10, 10, 10, 10, 10]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_2", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
+
+<h2> Step Chart Example</h2>
+<pre class="prettyprint lang-py">
+    x = [1, 2, 3, 4, 5, 6, 7]
+    y = [i ** 2 / 2.0 for i in x]
+
+    import c3pyo as c3
+    chart = c3.StepChart()
+    chart.area(True)
+    chart.plot(x, y, label="(x^2)/2")
+    chart.show()
+</pre>
+
+<div id='area_chart_3'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"(x^2)/2": "x_(x^2)/2"}, "colors": {}, "type": "area-step", "columns": [["x_(x^2)/2", 1, 2, 3, 4, 5, 6, 7], ["(x^2)/2", 0.5, 2.0, 4.5, 8.0, 12.5, 18.0, 24.5]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_3", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
         </div>
 
     </div>

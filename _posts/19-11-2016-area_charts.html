@@ -1,0 +1,68 @@
+---
+layout: post
+title: Area Charts
+category: docs
+excerpt: Area Charts using C3PyO
+---
+
+Charts with filled area under the curve can be made for spline charts, line charts, or step charts using
+<pre class="prettyprint lang-py">
+    chart.area(True)
+</pre>
+<h2> Area Spline Chart Example</h2>
+<pre class="prettyprint lang-py">
+    import datetime
+    dts = [datetime.datetime(2015, 3, 5, x) for x in [10, 11, 12, 13, 14]]
+    y1 = [10, 20, 30, 20, 10]
+    y2 = [20, 10, 30, 40, 0]
+
+    import c3pyo as c3
+    chart = c3.SplineChart()
+    chart.area(True)
+    chart.plot(dts, y1, label="y1")
+    chart.plot(dts, y2, label="y2")
+    chart.show()
+</pre>
+
+<div id='area_chart_1'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"y1": "x_y1", "y2": "x_y2"}, "colors": {}, "type": "area-spline", "xFormat": "%Y-%m-%d %H:%M:%S", "columns": [["x_y1", "2015-03-05 10:00:00", "2015-03-05 11:00:00", "2015-03-05 12:00:00", "2015-03-05 13:00:00", "2015-03-05 14:00:00"], ["y1", 10, 20, 30, 20, 10], ["x_y2", "2015-03-05 10:00:00", "2015-03-05 11:00:00", "2015-03-05 12:00:00", "2015-03-05 13:00:00", "2015-03-05 14:00:00"], ["y2", 20, 10, 30, 40, 0]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_1", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {"tick": {"format": "%Y-%m-%d %H:%M:%S"}, "type": "timeseries"}}})
+</script>
+
+<h2> Area Line Chart Example</h2>
+<pre class="prettyprint lang-py">
+    x = [1, 3, 5, 7, 9, 11]
+    y1 = [5, 20, 50, 32, 2, 10]
+    y2 = [54, 12, 23, 32, 39, 10]
+    y3 = [10, 10, 10, 10, 10, 10]
+
+    import c3pyo as c3
+    chart = c3.LineChart()
+    chart.area(True)
+    chart.plot(x, y1, label="y1")
+    chart.plot(x, y2, label="y2")
+    chart.plot(x, y3, label="y3")
+    chart.show()
+</pre>
+
+<div id='area_chart_2'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"y1": "x_y1", "y3": "x_y3", "y2": "x_y2"}, "colors": {}, "type": "area", "columns": [["x_y1", 1, 3, 5, 7, 9, 11], ["y1", 5, 20, 50, 32, 2, 10], ["x_y2", 1, 3, 5, 7, 9, 11], ["y2", 54, 12, 23, 32, 39, 10], ["x_y3", 1, 3, 5, 7, 9, 11], ["y3", 10, 10, 10, 10, 10, 10]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_2", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
+
+<h2> Step Chart Example</h2>
+<pre class="prettyprint lang-py">
+    x = [1, 2, 3, 4, 5, 6, 7]
+    y = [i ** 2 / 2.0 for i in x]
+
+    import c3pyo as c3
+    chart = c3.StepChart()
+    chart.area(True)
+    chart.plot(x, y, label="(x^2)/2")
+    chart.show()
+</pre>
+
+<div id='area_chart_3'></div>
+<script>
+    c3.generate({"grid": {"y": {"show": false}, "x": {"show": false}}, "subchart": {"enabled": false}, "data": {"xs": {"(x^2)/2": "x_(x^2)/2"}, "colors": {}, "type": "area-step", "columns": [["x_(x^2)/2", 1, 2, 3, 4, 5, 6, 7], ["(x^2)/2", 0.5, 2.0, 4.5, 8.0, 12.5, 18.0, 24.5]]}, "legend": {"position": "bottom", "show": true}, "size": {}, "bar": {}, "zoom": {"enabled": false}, "tooltip": {"show": true}, "bindto": "#area_chart_3", "donut": {}, "points": {"show": true}, "axis": {"y": {}, "x": {}}})
+</script>
