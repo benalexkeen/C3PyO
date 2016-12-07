@@ -127,6 +127,15 @@ class C3Chart(object):
             raise TypeError("arg for show_tooltip must be boolean, received {}".format(type(show_tooltip)))
         self._show_tooltip = show_tooltip
 
+    def bind_to(self, div_name):
+        if not isinstance(x, basestring):
+            msg = "parameter for bind_to must be string, received {} of type {}"
+            raise TypeError(msg.format(div_name, type(div_name)))
+        if div_name.startswith('#'):
+            self._chart_div = div_name
+        else:
+            self._chart_div = '#{}'.format(div_name)
+
     def add_color(self, color, y_label):
         three_hex = re.compile("^(#)?[A-Fa-f0-9]{3}$")
         six_hex = re.compile("^(#)?[A-Fa-f0-9]{6}$")
@@ -142,6 +151,8 @@ class C3Chart(object):
         else:
             msg = "color {} not recognised for {}, please use a recognised color or hex code"
             raise ValueError(msg.format(color, y_label))
+
+
 
     def get_legend_for_json(self):
         return {
