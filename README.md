@@ -1,7 +1,7 @@
 # C3PyO - Easy Interactive Charts
 [![Build Status](https://travis-ci.org/benalexkeen/C3PyO.svg?branch=master)](https://travis-ci.org/benalexkeen/C3PyO)
 [![Version](https://img.shields.io/pypi/v/c3pyo.svg)](https://pypi.python.org/pypi/c3pyo/)
-[![PyPi](https://img.shields.io/pypi/dm/c3pyo.svg)(https://pypi.python.org/pypi/c3pyo/)]
+[![PyPi](https://img.shields.io/pypi/dm/c3pyo.svg)](https://pypi.python.org/pypi/c3pyo/)
 
 C3PyO is a python wrapper for the data visualisation library C3.js
 It will provide a framework for including dynamic graphs in your python web projects.
