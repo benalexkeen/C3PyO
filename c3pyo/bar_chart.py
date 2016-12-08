@@ -75,6 +75,3 @@ class BarChart(C3Chart):
             }
         }
 
-    def show(self):
-        chart_json = self.get_chart_json()
-        self.plot_graph(chart_json)

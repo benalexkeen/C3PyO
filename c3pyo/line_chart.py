@@ -121,10 +121,6 @@ class LineChart(C3Chart):
     def check_chart_type(self):
         assert self._chart_type in valid_types, self._chart_type
 
-    def show(self):
-        chart_json = self.get_chart_json()
-        self.plot_graph(chart_json)
-
 
 class SplineChart(LineChart):
     def __init__(self, **kwargs):
