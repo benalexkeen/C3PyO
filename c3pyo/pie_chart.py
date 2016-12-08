@@ -34,10 +34,6 @@ class PieChart(C3Chart):
     def get_axis_for_json(self):
         return {}
 
-    def show(self):
-        chart_json = self.get_chart_json()
-        self.plot_graph(chart_json)
-
 
 class DonutChart(PieChart):
     def __init__(self, **kwargs):

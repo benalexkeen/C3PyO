@@ -6,22 +6,19 @@ import os
 import json
 import numbers
 import re
+import tempfile
+import shutil
 
 from jinja2 import Environment, PackageLoader
 
 from c3pyo.utils import single_letter_color_mapping, color_mapping
 
 __here__ = os.path.dirname(os.path.abspath(__file__))
-temp_path = os.path.join(__here__, 'temp.html')
 
 CHART_BASE_FILENAME = './chart.html'
 
 pl = PackageLoader('c3pyo', 'templates')
 jinja2_env = Environment(loader=pl)
-
-template = jinja2_env.get_template(CHART_BASE_FILENAME)
-
-url = 'file:///' + temp_path
 
 
 class C3Chart(object):
@@ -210,11 +207,18 @@ class C3Chart(object):
         return {}
 
     def plot_graph(self, chart_json):
+        directory_name = tempfile.mkdtemp()
+        template = jinja2_env.get_template(CHART_BASE_FILENAME)
+        temp_path = os.path.join(directory_name, 'chart.html')
         with open(temp_path, 'w') as f:
-            f.write(template.render(
-                title=self._name,
-                chart_json=chart_json,
-                ))
+            f.write(
+                template.render(
+                    title=self._name,
+                    chart_json=chart_json,
+                )
+            )
+        shutil.copytree(os.path.join(__here__, 'static'), os.path.join(directory_name, 'static'))
+        url = 'file:///' + temp_path
         webbrowser.open(url)
 
     def json(self):
@@ -238,6 +242,10 @@ class C3Chart(object):
         }
         chart_json = json.dumps(chart_json)
         return chart_json
+
+    def show(self):
+        chart_json = self.get_chart_json()
+        self.plot_graph(chart_json)
 
     def get_data_for_json(self):
         raise NotImplementedError
