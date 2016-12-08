@@ -6,7 +6,7 @@ except ImportError:
 
 setup(
     name='c3pyo',
-    version='0.0.2',
+    version='0.0.3',
     description="Python C3 - Chart Library for d3.js",
     keywords=['plot, graph, c3, d3', 'data', 'visualization'],
     author='Ben Keen',
