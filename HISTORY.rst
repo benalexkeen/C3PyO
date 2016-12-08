@@ -3,6 +3,20 @@
 Release History
 ---------------
 
+0.0.4.1 (2016-12-08)
+++++++++++++++++++
+
+** Bug Fixes **
+
+* Basestring removed to ensure python 3 compatibility
+
+0.0.4 (2016-12-08)
+++++++++++++++++++
+
+** Bug Fixes **
+
+* Fix bug in binding to custom div name
+
 0.0.3 (2016-12-08)
 ++++++++++++++++++
 

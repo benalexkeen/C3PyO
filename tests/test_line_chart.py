@@ -9,11 +9,12 @@ class TestLineChart(unittest.TestCase):
         chart1 = LineChart()
         data = [[1, 2, 3, 4, 5], [10, 20, 30, 40, 50]]
         chart1.plot(data[0], data[1])
+        chart1.bind_to('a_div_name')
         output_json = chart1.json()
         output = json.loads(output_json)
 
         self.assertIn("bindto", output)
-        self.assertEqual(output['bindto'], '#chart_div')
+        self.assertEqual(output['bindto'], '#a_div_name')
         self.assertIn("points", output)
         self.assertIn("grid", output)
         self.assertIs(output['grid']['x']['show'], False)

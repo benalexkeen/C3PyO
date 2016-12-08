@@ -125,7 +125,11 @@ class C3Chart(object):
         self._show_tooltip = show_tooltip
 
     def bind_to(self, div_name):
-        if not isinstance(x, basestring):
+        try:
+            basestring
+        except:
+            basestring = str
+        if not isinstance(div_name, basestring):
             msg = "parameter for bind_to must be string, received {} of type {}"
             raise TypeError(msg.format(div_name, type(div_name)))
         if div_name.startswith('#'):
