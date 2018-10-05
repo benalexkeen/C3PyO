@@ -5,6 +5,8 @@
 C3PyO is a python wrapper for the data visualisation library C3.js
 It will provide a framework for including dynamic graphs in your python web projects.
 
+There is an example of usage in a flask application in the examples directory.
+
 | Description | Python wrapper for the C3.js graph library                       |
 |-------------|------------------------------------------------------------------|
 | Docs        | [Click Here for Docs](https://benalexkeen.github.io/C3PyO/docs/) |
@@ -30,8 +32,7 @@ chart.plot(x, y1, label="y1")
 chart.plot(x, y2, label="y2")
 chart.show()
 ```
-![LineChart1]
-(http://benalexkeen.com/wp-content/uploads/2016/10/linechart1.png)
+![LineChart1](http://benalexkeen.com/wp-content/uploads/2016/10/linechart1.png)
 
 ### Spline Chart
 
@@ -50,8 +51,7 @@ chart.plot(dts, y2, label="y2")
 chart.show()
 ```
 
-![SplineChart1]
-(http://benalexkeen.com/wp-content/uploads/2016/10/splinechart1.png)
+![SplineChart1](http://benalexkeen.com/wp-content/uploads/2016/10/splinechart1.png)
 
 ### Bar Chart
 
@@ -68,8 +68,7 @@ chart.ylabel('Height (cm)')
 chart.show()
 ```
 
-![BarChart1]
-(http://benalexkeen.com/wp-content/uploads/2016/11/bar_chart.png)
+![BarChart1](http://benalexkeen.com/wp-content/uploads/2016/11/bar_chart.png)
 
 ### Scatter Chart
 
@@ -84,5 +83,4 @@ chart.plot(dataset_2['x'], dataset_2['y'], label='Dataset2')
 chart.show()
 ```
 
-![ScatterChart1]
-(http://benalexkeen.com/wp-content/uploads/2016/10/scatterchart1.png)
+![ScatterChart1](http://benalexkeen.com/wp-content/uploads/2016/10/scatterchart1.png)
